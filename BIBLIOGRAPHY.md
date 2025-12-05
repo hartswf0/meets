@@ -21,6 +21,12 @@ A complete citation guide for all collections in the archive.
 ### Words Assemble Worlds
 > Harts, W.F. (2024). *Words Assemble Worlds: Constructivist Prompting and Shared Meaning-Making*. Visual essay on worlding through language.
 
+### AI Grief: Five Western Reactions
+> Harts, W.F. (2024). *AI Grief: Five Western Reactions*. Visual essay applying Kübler-Ross grief framework to technological displacement. Original synthesis.
+
+### Molasses Talk: Thick Ekphrasis
+> Harts, W.F. (2024). *Molasses Talk: Thick Ekphrasis*. Visual essay combining Geertz's thick description with classical ekphrasis. Original synthesis.
+
 ---
 
 ## Anthropology & Thick Description
@@ -32,11 +38,9 @@ A complete citation guide for all collections in the archive.
 > Geertz, C. (1973). The Impact of the Concept of Culture on the Concept of Man. In *The Interpretation of Cultures: Selected Essays* (pp. 33–54). Basic Books.
 
 ### Play, Rules & Serious Muddles
-> Geertz, C. (1973). Deep Play: Notes on the Balinese Cockfight. In *The Interpretation of Cultures: Selected Essays* (pp. 412–453). Basic Books.
-
 > Bateson, G. (1972). A Theory of Play and Fantasy. In *Steps to an Ecology of Mind* (pp. 177–193). Ballantine Books. (Originally published 1955)
 
-**Key concept**: Thick description—recording not just behavior but the layered meanings that make behavior intelligible within a cultural context. Play frames and metacommunication.
+**Key concept**: Play frames and metacommunication—"this is play" as a message about messages.
 
 ---
 

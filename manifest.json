@@ -3,12 +3,11 @@
     "id": "ai-grief-five-western-reactions",
     "title": "AI Grief: Five Western Reactions",
     "path": "./AI Grief_ Five Western Reactions",
-    "tier": 3,
-    "theme": "history",
+    "tier": 1,
+    "theme": "original",
     "tags": [
-      "ai",
-      "culture",
-      "history"
+      "original",
+      "synthesis"
     ],
     "files": [
       "AI Grief_ Five Western Reactions 1.png",
@@ -32,8 +31,7 @@
     "tier": 3,
     "theme": "language",
     "tags": [
-      "wittgenstein",
-      "philosophy"
+      "wittgenstein"
     ],
     "files": [
       "Augustine to Language-Games 1.png",
@@ -48,9 +46,7 @@
     "tier": 3,
     "theme": "history",
     "tags": [
-      "benjamin",
-      "history",
-      "philosophy"
+      "benjamin"
     ],
     "files": [
       "Benjamin's Theses on History 1.png",
@@ -74,8 +70,7 @@
     "tier": 2,
     "theme": "culture",
     "tags": [
-      "geertz",
-      "anthropology"
+      "geertz"
     ],
     "files": [
       "Common Sense as a Cultural System 1.png",
@@ -93,7 +88,7 @@
     "title": "Conversational Viscosity",
     "path": "./Conversational Viscosity",
     "tier": 1,
-    "theme": "cybernetics",
+    "theme": "original",
     "tags": [
       "original",
       "practice"
@@ -116,11 +111,10 @@
     "title": "Cool Radio, Warm Myths",
     "path": "./Cool Radio, Warm Myths",
     "tier": 1,
-    "theme": "media",
+    "theme": "original",
     "tags": [
       "original",
-      "mcluhan",
-      "barthes"
+      "mcluhan"
     ],
     "files": [
       "Cool Radio, Warm Myths 1.png",
@@ -150,8 +144,7 @@
     "tier": 2,
     "theme": "culture",
     "tags": [
-      "geertz",
-      "anthropology"
+      "geertz"
     ],
     "files": [
       "Culture Re-Engineers Man 1.png",
@@ -174,8 +167,7 @@
     "tier": 3,
     "theme": "cybernetics",
     "tags": [
-      "calvino",
-      "literature"
+      "calvino"
     ],
     "files": [
       "Cybernetics & Ghosts 1.png",
@@ -195,9 +187,7 @@
     "tier": 3,
     "theme": "cybernetics",
     "tags": [
-      "butler",
-      "ai",
-      "evolution"
+      "butler"
     ],
     "files": [
       "Darwin Among the Machines 1.png",
@@ -219,8 +209,7 @@
     "tier": 2,
     "theme": "communication",
     "tags": [
-      "bateson",
-      "metacommunication"
+      "bateson"
     ],
     "files": [
       "Dolphin Talk_ Code of Relationship 1.png",
@@ -244,8 +233,7 @@
     "tier": 2,
     "theme": "aesthetics",
     "tags": [
-      "bateson",
-      "aesthetics"
+      "bateson"
     ],
     "files": [
       "Grace, Style & Info in Art 1.png",
@@ -269,8 +257,7 @@
     "tier": 3,
     "theme": "media",
     "tags": [
-      "heidegger",
-      "technology"
+      "heidegger"
     ],
     "files": [
       "Heidegger_ Questioning Tech's Essence 1.png",
@@ -294,8 +281,7 @@
     "tier": 3,
     "theme": "language",
     "tags": [
-      "translation",
-      "meaning"
+      "jakobson"
     ],
     "files": [
       "Language as Concept Translation 1.png",
@@ -316,11 +302,11 @@
     "id": "molasses-talk-thick-ekphrasis",
     "title": "Molasses Talk: Thick Ekphrasis",
     "path": "./Molasses Talk_ Thick Ekphrasis",
-    "tier": 2,
-    "theme": "language",
+    "tier": 1,
+    "theme": "original",
     "tags": [
-      "ekphrasis",
-      "description"
+      "original",
+      "synthesis"
     ],
     "files": [
       "Molasses Talk_ Thick Ekphrasis 1.png",
@@ -340,8 +326,7 @@
     "tier": 2,
     "theme": "communication",
     "tags": [
-      "serres",
-      "noise"
+      "serres"
     ],
     "files": [
       "Noise_ Between Chaos & Death 1.png",
@@ -365,9 +350,7 @@
     "tier": 2,
     "theme": "communication",
     "tags": [
-      "bajohr",
-      "ekphrasis",
-      "ai"
+      "bajohr"
     ],
     "files": [
       "Operative Ekphrasis in AI 1.png",
@@ -391,9 +374,7 @@
     "tier": 2,
     "theme": "play",
     "tags": [
-      "bateson",
-      "geertz",
-      "play"
+      "bateson"
     ],
     "files": [
       "Play, Rules & Serious Muddles 1.png",
@@ -415,8 +396,7 @@
     "tier": 2,
     "theme": "communication",
     "tags": [
-      "serres",
-      "parasite"
+      "serres"
     ],
     "files": [
       "Satyrs' Meals_ Host, Guest, Parasite 1.png",
@@ -438,7 +418,7 @@
     "title": "Thick Prompt Alchemy",
     "path": "./Thick Prompt Alchemy",
     "tier": 1,
-    "theme": "practice",
+    "theme": "original",
     "tags": [
       "original",
       "practice"
@@ -461,7 +441,7 @@
     "title": "Thick Prompts as Cybernetic Molasses",
     "path": "./Thick Prompts as Cybernetic Molasses",
     "tier": 1,
-    "theme": "theory",
+    "theme": "original",
     "tags": [
       "original",
       "core-thesis"
@@ -478,8 +458,7 @@
     "tier": 3,
     "theme": "ai",
     "tags": [
-      "turing",
-      "ai"
+      "turing"
     ],
     "files": [
       "Turing's Test_ Can Machines Think_ 1.png",
@@ -502,7 +481,7 @@
     "theme": "cybernetics",
     "tags": [
       "lettvin",
-      "perception"
+      "bateson"
     ],
     "files": [
       "What the Frog's Eye Tells the Brain 1.png",
@@ -524,8 +503,7 @@
     "tier": 3,
     "theme": "language",
     "tags": [
-      "wittgenstein",
-      "context"
+      "wittgenstein"
     ],
     "files": [
       "Wittgenstein's Model-Milieu 1914 1.png",
@@ -544,7 +522,7 @@
     "title": "Words Assemble Worlds",
     "path": "./Words Assemble Worlds (2)",
     "tier": 1,
-    "theme": "language",
+    "theme": "original",
     "tags": [
       "original",
       "worlding"
@@ -574,8 +552,7 @@
     "tier": 3,
     "theme": "play",
     "tags": [
-      "barthes",
-      "spectacle"
+      "barthes"
     ],
     "files": [
       "Wrestling as Mythic Spectacle 1.png",

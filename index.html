@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Thick Prompts — Dissertation Research</title>
-    <meta name="description"
-        content="Practice-based dissertation on viscous human-AI collaboration through thick prompts.">
+    <meta name="description" content="Practice-based dissertation on viscous human-AI collaboration.">
     <style>
         :root {
             --bg: #fafafa;
@@ -47,7 +46,7 @@
         body {
             background: var(--bg);
             color: var(--text);
-            font-family: 'Georgia', 'Times New Roman', serif;
+            font-family: 'Georgia', serif;
             line-height: 1.7;
             padding: 0 20px;
         }
@@ -58,14 +57,13 @@
             padding: 60px 0;
         }
 
-        /* Header */
         header {
             margin-bottom: 50px;
             text-align: center;
         }
 
         .overline {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, sans-serif;
             font-size: 11px;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -86,7 +84,6 @@
             font-style: italic;
         }
 
-        /* Abstract */
         .abstract {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -95,7 +92,7 @@
         }
 
         .abstract h2 {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, sans-serif;
             font-size: 11px;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -109,7 +106,7 @@
             margin-bottom: 12px;
         }
 
-        .abstract p:last-child {
+        .abstract p:last-of-type {
             margin-bottom: 0;
         }
 
@@ -117,7 +114,7 @@
             margin-top: 20px;
             padding-top: 15px;
             border-top: 1px solid var(--border);
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, sans-serif;
             font-size: 12px;
             color: var(--dim);
         }
@@ -126,7 +123,6 @@
             color: var(--text);
         }
 
-        /* Launch Button */
         .launch {
             text-align: center;
             margin-bottom: 50px;
@@ -138,20 +134,17 @@
             color: #fff;
             text-decoration: none;
             padding: 14px 36px;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, sans-serif;
             font-size: 13px;
             font-weight: 600;
             letter-spacing: 1px;
             border-radius: 4px;
-            transition: all 0.2s;
         }
 
         .launch-btn:hover {
             opacity: 0.9;
-            transform: translateY(-1px);
         }
 
-        /* Thesis */
         .thesis {
             margin-bottom: 50px;
         }
@@ -189,8 +182,7 @@
             content: counter(claim);
             position: absolute;
             left: 0;
-            top: 0;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, sans-serif;
             font-size: 11px;
             font-weight: 600;
             width: 22px;
@@ -206,7 +198,6 @@
             color: var(--accent);
         }
 
-        /* Archive */
         .archive {
             margin-bottom: 40px;
         }
@@ -231,31 +222,29 @@
         }
 
         .tier-badge {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, sans-serif;
             font-size: 10px;
             font-weight: 600;
             padding: 3px 8px;
             border-radius: 2px;
             letter-spacing: 0.5px;
+            color: #fff;
         }
 
         .t1 .tier-badge {
             background: var(--t1);
-            color: #fff;
         }
 
         .t2 .tier-badge {
             background: var(--t2);
-            color: #fff;
         }
 
         .t3 .tier-badge {
             background: var(--t3);
-            color: #fff;
         }
 
         .tier-label {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, sans-serif;
             font-size: 12px;
             color: var(--dim);
         }
@@ -267,14 +256,16 @@
         }
 
         .tier-item {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, sans-serif;
             font-size: 12px;
-            padding: 6px 12px;
+            padding: 8px 14px;
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 3px;
             cursor: pointer;
             transition: all 0.15s;
+            text-decoration: none;
+            color: var(--text);
         }
 
         .tier-item:hover {
@@ -283,23 +274,22 @@
         }
 
         .t1 .tier-item {
-            border-left: 2px solid var(--t1);
+            border-left: 3px solid var(--t1);
         }
 
         .t2 .tier-item {
-            border-left: 2px solid var(--t2);
+            border-left: 3px solid var(--t2);
         }
 
         .t3 .tier-item {
-            border-left: 2px solid var(--t3);
+            border-left: 3px solid var(--t3);
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding-top: 30px;
             border-top: 1px solid var(--border);
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, sans-serif;
             font-size: 12px;
             color: var(--dim);
         }
@@ -314,7 +304,6 @@
             color: var(--accent);
         }
 
-        /* Mobile */
         @media (max-width: 600px) {
             .container {
                 padding: 40px 0;
@@ -333,12 +322,11 @@
             }
 
             .tier-item {
-                padding: 8px 10px;
+                padding: 10px 12px;
                 font-size: 11px;
             }
         }
 
-        /* Loading */
         .loading {
             text-align: center;
             padding: 20px;
@@ -364,14 +352,10 @@
                 creative dialogue.
             </p>
             <p>
-                Drawing on Clifford Geertz's concept of <em>thick description</em>, Gregory Bateson's cybernetic theory
-                of metacommunication, and Marshall McLuhan's distinction between hot and cool media, I argue that the
-                quality of AI interaction depends not on prompt "engineering" but on prompt <em>viscosity</em>: the
-                degree to which instructions carry embedded context, cultural weight, and relational thickness.
-            </p>
-            <p>
-                The archive presents 25 visual essays exploring the theoretical lineage and practical applications of
-                viscous prompting.
+                Drawing on Clifford Geertz's <em>thick description</em>, Gregory Bateson's cybernetic theory of
+                metacommunication, and Marshall McLuhan's hot/cool media distinction, I argue that AI interaction
+                quality depends not on prompt "engineering" but on <em>viscosity</em>: the degree to which instructions
+                carry embedded context, cultural weight, and relational thickness.
             </p>
             <div class="keywords">
                 <strong>Keywords:</strong> thick description, cybernetics, prompt engineering, human-AI collaboration,
@@ -406,31 +390,25 @@
             <div class="tier t1">
                 <div class="tier-header">
                     <span class="tier-badge">TIER 1</span>
-                    <span class="tier-label">Original Contributions</span>
+                    <span class="tier-label">Original Contributions (8)</span>
                 </div>
-                <div class="tier-list" id="tier1">
-                    <span class="loading">Loading...</span>
-                </div>
+                <div class="tier-list" id="tier1"></div>
             </div>
 
             <div class="tier t2">
                 <div class="tier-header">
                     <span class="tier-badge">TIER 2</span>
-                    <span class="tier-label">Direct Sources — Bateson, Geertz, Serres</span>
+                    <span class="tier-label">Direct Sources — Bateson, Geertz, Serres (10)</span>
                 </div>
-                <div class="tier-list" id="tier2">
-                    <span class="loading">Loading...</span>
-                </div>
+                <div class="tier-list" id="tier2"></div>
             </div>
 
             <div class="tier t3">
                 <div class="tier-header">
                     <span class="tier-badge">TIER 3</span>
-                    <span class="tier-label">Theoretical Context</span>
+                    <span class="tier-label">Theoretical Context (7)</span>
                 </div>
-                <div class="tier-list" id="tier3">
-                    <span class="loading">Loading...</span>
-                </div>
+                <div class="tier-list" id="tier3"></div>
             </div>
         </div>
 
@@ -443,28 +421,6 @@
     </div>
 
     <script>
-        const tierMap = {
-            1: [
-                'thick-prompts-as-cybernetic-molasses',
-                'thick-prompt-alchemy',
-                'conversational-viscosity',
-                'cool-radio-warm-myths',
-                'words-assemble-worlds-2'
-            ],
-            2: [
-                'dolphin-talk-code-of-relationship',
-                'grace-style-info-in-art',
-                'play-rules-serious-muddles',
-                'what-the-frog-s-eye-tells-the-brain',
-                'common-sense-as-a-cultural-system',
-                'culture-re-engineers-man',
-                'noise-between-chaos-death',
-                'satyrs-meals-host-guest-parasite',
-                'operative-ekphrasis-in-ai',
-                'molasses-talk-thick-ekphrasis'
-            ]
-        };
-
         async function init() {
             try {
                 const res = await fetch('manifest.json');
@@ -473,27 +429,32 @@
                 const tiers = { 1: [], 2: [], 3: [] };
 
                 manifest.forEach(f => {
-                    let tier = 3;
-                    if (tierMap[1].includes(f.id)) tier = 1;
-                    else if (tierMap[2].includes(f.id)) tier = 2;
-                    tiers[tier].push({
+                    const t = f.tier || 3;
+                    tiers[t].push({
                         id: f.id,
-                        title: f.title.replace(/_ /g, ': ').replace(/_/g, ':')
+                        title: f.title
                     });
                 });
 
-                // Sort alphabetically within tiers
-                Object.keys(tiers).forEach(t => tiers[t].sort((a, b) => a.title.localeCompare(b.title)));
+                // Sort alphabetically
+                [1, 2, 3].forEach(t => {
+                    tiers[t].sort((a, b) => a.title.localeCompare(b.title));
+                });
 
-                // Render
+                // Render as anchor links
                 [1, 2, 3].forEach(t => {
                     const container = document.getElementById('tier' + t);
-                    container.innerHTML = tiers[t].map(item =>
-                        `<span class="tier-item" onclick="location.href='slideshow.html#${item.id}'">${item.title}</span>`
-                    ).join('');
+                    if (tiers[t].length === 0) {
+                        container.innerHTML = '<span class="loading">None</span>';
+                    } else {
+                        container.innerHTML = tiers[t].map(item =>
+                            `<a class="tier-item" href="slideshow.html#${item.id}">${item.title}</a>`
+                        ).join('');
+                    }
                 });
 
             } catch (e) {
+                console.error(e);
                 document.querySelectorAll('.tier-list').forEach(el => {
                     el.innerHTML = '<span class="loading">Open via localhost:8080</span>';
                 });
