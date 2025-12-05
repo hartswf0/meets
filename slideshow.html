@@ -553,6 +553,15 @@
                 manifest = await res.json();
                 renderFolders();
                 setupEvents();
+
+                // Check for hash deep link
+                if (window.location.hash) {
+                    const targetId = window.location.hash.slice(1);
+                    const folderIndex = manifest.findIndex(f => f.id === targetId);
+                    if (folderIndex !== -1) {
+                        zoomIntoFolder(folderIndex);
+                    }
+                }
             } catch (e) {
                 document.getElementById('folders-level').innerHTML = `
                     <div style="padding:40px;text-align:center;color:var(--dim);">

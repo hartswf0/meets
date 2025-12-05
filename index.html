@@ -476,17 +476,20 @@
                     let tier = 3;
                     if (tierMap[1].includes(f.id)) tier = 1;
                     else if (tierMap[2].includes(f.id)) tier = 2;
-                    tiers[tier].push(f.title.replace(/_ /g, ': ').replace(/_/g, ':'));
+                    tiers[tier].push({
+                        id: f.id,
+                        title: f.title.replace(/_ /g, ': ').replace(/_/g, ':')
+                    });
                 });
 
                 // Sort alphabetically within tiers
-                Object.keys(tiers).forEach(t => tiers[t].sort());
+                Object.keys(tiers).forEach(t => tiers[t].sort((a, b) => a.title.localeCompare(b.title)));
 
                 // Render
                 [1, 2, 3].forEach(t => {
                     const container = document.getElementById('tier' + t);
-                    container.innerHTML = tiers[t].map(title =>
-                        `<span class="tier-item" onclick="location.href='slideshow.html'">${title}</span>`
+                    container.innerHTML = tiers[t].map(item =>
+                        `<span class="tier-item" onclick="location.href='slideshow.html#${item.id}'">${item.title}</span>`
                     ).join('');
                 });
 
