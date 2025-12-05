@@ -1,8 +1,14 @@
 [
   {
     "id": "ai-grief-five-western-reactions",
-    "title": "AI Grief_ Five Western Reactions",
+    "title": "AI Grief: Five Western Reactions",
     "path": "./AI Grief_ Five Western Reactions",
+    "theme": "history",
+    "tags": [
+      "ai",
+      "culture",
+      "history"
+    ],
     "files": [
       "AI Grief_ Five Western Reactions 1.png",
       "AI Grief_ Five Western Reactions 10.png",
@@ -22,6 +28,11 @@
     "id": "augustine-to-language-games",
     "title": "Augustine to Language-Games",
     "path": "./Augustine to Language-Games",
+    "theme": "language",
+    "tags": [
+      "language",
+      "philosophy"
+    ],
     "files": [
       "Augustine to Language-Games 1.png",
       "Augustine to Language-Games 2.png",
@@ -32,6 +43,12 @@
     "id": "benjamin-s-theses-on-history",
     "title": "Benjamin's Theses on History",
     "path": "./Benjamin's Theses on History",
+    "theme": "history",
+    "tags": [
+      "history",
+      "philosophy",
+      "culture"
+    ],
     "files": [
       "Benjamin's Theses on History 1.png",
       "Benjamin's Theses on History 10.png",
@@ -51,6 +68,12 @@
     "id": "common-sense-as-a-cultural-system",
     "title": "Common Sense as a Cultural System",
     "path": "./Common Sense as a Cultural System",
+    "theme": "culture",
+    "tags": [
+      "culture",
+      "geertz",
+      "anthropology"
+    ],
     "files": [
       "Common Sense as a Cultural System 1.png",
       "Common Sense as a Cultural System 2.png",
@@ -66,6 +89,13 @@
     "id": "conversational-viscosity",
     "title": "Conversational Viscosity",
     "path": "./Conversational Viscosity",
+    "theme": "cybernetics",
+    "tags": [
+      "original",
+      "cybernetics",
+      "practice"
+    ],
+    "status": "original",
     "files": [
       "Conversational Viscosity 1.png",
       "Conversational Viscosity 10.png",
@@ -83,6 +113,13 @@
     "id": "cool-radio-warm-myths",
     "title": "Cool Radio, Warm Myths",
     "path": "./Cool Radio, Warm Myths",
+    "theme": "media",
+    "tags": [
+      "core-theory",
+      "media",
+      "mcluhan"
+    ],
+    "status": "core-theory",
     "files": [
       "Cool Radio, Warm Myths 1.png",
       "Cool Radio, Warm Myths 10.png",
@@ -108,6 +145,12 @@
     "id": "culture-re-engineers-man",
     "title": "Culture Re-Engineers Man",
     "path": "./Culture Re-Engineers Man",
+    "theme": "culture",
+    "tags": [
+      "culture",
+      "geertz",
+      "anthropology"
+    ],
     "files": [
       "Culture Re-Engineers Man 1.png",
       "Culture Re-Engineers Man 10.png",
@@ -126,6 +169,12 @@
     "id": "cybernetics-ghosts",
     "title": "Cybernetics & Ghosts",
     "path": "./Cybernetics & Ghosts",
+    "theme": "cybernetics",
+    "tags": [
+      "cybernetics",
+      "calvino",
+      "literature"
+    ],
     "files": [
       "Cybernetics & Ghosts 1.png",
       "Cybernetics & Ghosts 2.png",
@@ -141,6 +190,12 @@
     "id": "darwin-among-the-machines",
     "title": "Darwin Among the Machines",
     "path": "./Darwin Among the Machines",
+    "theme": "cybernetics",
+    "tags": [
+      "cybernetics",
+      "ai",
+      "evolution"
+    ],
     "files": [
       "Darwin Among the Machines 1.png",
       "Darwin Among the Machines 10.png",
@@ -156,8 +211,14 @@
   },
   {
     "id": "dolphin-talk-code-of-relationship",
-    "title": "Dolphin Talk_ Code of Relationship",
+    "title": "Dolphin Talk: Code of Relationship",
     "path": "./Dolphin Talk_ Code of Relationship",
+    "theme": "communication",
+    "tags": [
+      "bateson",
+      "communication",
+      "cybernetics"
+    ],
     "files": [
       "Dolphin Talk_ Code of Relationship 1.png",
       "Dolphin Talk_ Code of Relationship 10.png",
@@ -177,6 +238,12 @@
     "id": "grace-style-info-in-art",
     "title": "Grace, Style & Info in Art",
     "path": "./Grace, Style & Info in Art",
+    "theme": "play",
+    "tags": [
+      "bateson",
+      "aesthetics",
+      "play"
+    ],
     "files": [
       "Grace, Style & Info in Art 1.png",
       "Grace, Style & Info in Art 10.png",
@@ -194,8 +261,14 @@
   },
   {
     "id": "heidegger-questioning-tech-s-essence",
-    "title": "Heidegger_ Questioning Tech's Essence",
+    "title": "Heidegger: Questioning Tech's Essence",
     "path": "./Heidegger_ Questioning Tech's Essence",
+    "theme": "media",
+    "tags": [
+      "media",
+      "philosophy",
+      "heidegger"
+    ],
     "files": [
       "Heidegger_ Questioning Tech's Essence 1.png",
       "Heidegger_ Questioning Tech's Essence 10.png",
@@ -215,6 +288,12 @@
     "id": "language-as-concept-translation",
     "title": "Language as Concept Translation",
     "path": "./Language as Concept Translation",
+    "theme": "language",
+    "tags": [
+      "language",
+      "translation",
+      "meaning"
+    ],
     "files": [
       "Language as Concept Translation 1.png",
       "Language as Concept Translation 10.png",
@@ -232,8 +311,14 @@
   },
   {
     "id": "molasses-talk-thick-ekphrasis",
-    "title": "Molasses Talk_ Thick Ekphrasis",
+    "title": "Molasses Talk: Thick Ekphrasis",
     "path": "./Molasses Talk_ Thick Ekphrasis",
+    "theme": "language",
+    "tags": [
+      "language",
+      "ekphrasis",
+      "description"
+    ],
     "files": [
       "Molasses Talk_ Thick Ekphrasis 1.png",
       "Molasses Talk_ Thick Ekphrasis 2.png",
@@ -247,8 +332,14 @@
   },
   {
     "id": "noise-between-chaos-death",
-    "title": "Noise_ Between Chaos & Death",
+    "title": "Noise: Between Chaos & Death",
     "path": "./Noise_ Between Chaos & Death",
+    "theme": "communication",
+    "tags": [
+      "noise",
+      "serres",
+      "communication"
+    ],
     "files": [
       "Noise_ Between Chaos & Death 1.png",
       "Noise_ Between Chaos & Death 10.png",
@@ -268,6 +359,12 @@
     "id": "operative-ekphrasis-in-ai",
     "title": "Operative Ekphrasis in AI",
     "path": "./Operative Ekphrasis in AI",
+    "theme": "communication",
+    "tags": [
+      "ai",
+      "ekphrasis",
+      "bajohr"
+    ],
     "files": [
       "Operative Ekphrasis in AI 1.png",
       "Operative Ekphrasis in AI 10.png",
@@ -287,6 +384,12 @@
     "id": "play-rules-serious-muddles",
     "title": "Play, Rules & Serious Muddles",
     "path": "./Play, Rules & Serious Muddles",
+    "theme": "play",
+    "tags": [
+      "play",
+      "geertz",
+      "games"
+    ],
     "files": [
       "Play, Rules & Serious Muddles 1.png",
       "Play, Rules & Serious Muddles 10.png",
@@ -302,27 +405,40 @@
   },
   {
     "id": "satyrs-meals-host-guest-parasite",
-    "title": "Satyrs\u2019 Meals_ Host, Guest, Parasite",
-    "path": "./Satyrs\u2019 Meals_ Host, Guest, Parasite",
+    "title": "Satyrs' Meals: Host, Guest, Parasite",
+    "path": "./Satyrs' Meals_ Host, Guest, Parasite",
+    "theme": "communication",
+    "tags": [
+      "serres",
+      "parasite",
+      "noise"
+    ],
     "files": [
-      "Satyrs\u2019 Meals_ Host, Guest, Parasite 1.png",
-      "Satyrs\u2019 Meals_ Host, Guest, Parasite 10.png",
-      "Satyrs\u2019 Meals_ Host, Guest, Parasite 11.png",
-      "Satyrs\u2019 Meals_ Host, Guest, Parasite 12.png",
-      "Satyrs\u2019 Meals_ Host, Guest, Parasite 2.png",
-      "Satyrs\u2019 Meals_ Host, Guest, Parasite 3.png",
-      "Satyrs\u2019 Meals_ Host, Guest, Parasite 4.png",
-      "Satyrs\u2019 Meals_ Host, Guest, Parasite 5.png",
-      "Satyrs\u2019 Meals_ Host, Guest, Parasite 6.png",
-      "Satyrs\u2019 Meals_ Host, Guest, Parasite 7.png",
-      "Satyrs\u2019 Meals_ Host, Guest, Parasite 8.png",
-      "Satyrs\u2019 Meals_ Host, Guest, Parasite 9.png"
+      "Satyrs' Meals_ Host, Guest, Parasite 1.png",
+      "Satyrs' Meals_ Host, Guest, Parasite 10.png",
+      "Satyrs' Meals_ Host, Guest, Parasite 11.png",
+      "Satyrs' Meals_ Host, Guest, Parasite 12.png",
+      "Satyrs' Meals_ Host, Guest, Parasite 2.png",
+      "Satyrs' Meals_ Host, Guest, Parasite 3.png",
+      "Satyrs' Meals_ Host, Guest, Parasite 4.png",
+      "Satyrs' Meals_ Host, Guest, Parasite 5.png",
+      "Satyrs' Meals_ Host, Guest, Parasite 6.png",
+      "Satyrs' Meals_ Host, Guest, Parasite 7.png",
+      "Satyrs' Meals_ Host, Guest, Parasite 8.png",
+      "Satyrs' Meals_ Host, Guest, Parasite 9.png"
     ]
   },
   {
     "id": "thick-prompt-alchemy",
     "title": "Thick Prompt Alchemy",
     "path": "./Thick Prompt Alchemy",
+    "theme": "culture",
+    "tags": [
+      "original",
+      "practice",
+      "prompts"
+    ],
+    "status": "original",
     "files": [
       "Thick Prompt Alchemy 1.png",
       "Thick Prompt Alchemy 10.png",
@@ -340,6 +456,14 @@
     "id": "thick-prompts-as-cybernetic-molasses",
     "title": "Thick Prompts as Cybernetic Molasses",
     "path": "./Thick Prompts as Cybernetic Molasses",
+    "theme": "cybernetics",
+    "tags": [
+      "original",
+      "core-theory",
+      "cybernetics",
+      "prompts"
+    ],
+    "status": "original",
     "files": [
       "Thick Prompts as Cybernetic Molasses 1.png",
       "Thick Prompts as Cybernetic Molasses 2.png"
@@ -347,8 +471,14 @@
   },
   {
     "id": "turing-s-test-can-machines-think",
-    "title": "Turing's Test_ Can Machines Think_",
+    "title": "Turing's Test: Can Machines Think?",
     "path": "./Turing's Test_ Can Machines Think_",
+    "theme": "media",
+    "tags": [
+      "ai",
+      "turing",
+      "media"
+    ],
     "files": [
       "Turing's Test_ Can Machines Think_ 1.png",
       "Turing's Test_ Can Machines Think_ 10.png",
@@ -366,6 +496,12 @@
     "id": "what-the-frog-s-eye-tells-the-brain",
     "title": "What the Frog's Eye Tells the Brain",
     "path": "./What the Frog's Eye Tells the Brain",
+    "theme": "cybernetics",
+    "tags": [
+      "cybernetics",
+      "perception",
+      "cognition"
+    ],
     "files": [
       "What the Frog's Eye Tells the Brain 1.png",
       "What the Frog's Eye Tells the Brain 10.png",
@@ -383,6 +519,12 @@
     "id": "wittgenstein-s-model-milieu-1914",
     "title": "Wittgenstein's Model-Milieu 1914",
     "path": "./Wittgenstein's Model-Milieu 1914",
+    "theme": "history",
+    "tags": [
+      "philosophy",
+      "wittgenstein",
+      "history"
+    ],
     "files": [
       "Wittgenstein's Model-Milieu 1914 1.png",
       "Wittgenstein's Model-Milieu 1914 2.png",
@@ -397,8 +539,15 @@
   },
   {
     "id": "words-assemble-worlds-2",
-    "title": "Words Assemble Worlds (2)",
+    "title": "Words Assemble Worlds",
     "path": "./Words Assemble Worlds (2)",
+    "theme": "language",
+    "tags": [
+      "core-theory",
+      "language",
+      "worlding"
+    ],
+    "status": "core-theory",
     "files": [
       "Words Assemble Worlds (2) 1.png",
       "Words Assemble Worlds (2) 10.png",
@@ -421,6 +570,12 @@
     "id": "wrestling-as-mythic-spectacle",
     "title": "Wrestling as Mythic Spectacle",
     "path": "./Wrestling as Mythic Spectacle",
+    "theme": "play",
+    "tags": [
+      "barthes",
+      "play",
+      "spectacle"
+    ],
     "files": [
       "Wrestling as Mythic Spectacle 1.png",
       "Wrestling as Mythic Spectacle 10.png",

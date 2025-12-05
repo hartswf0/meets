@@ -592,6 +592,16 @@
         }
 
         // === RENDER FOLDERS ===
+        const themeColors = {
+            'language': '#ff6b6b',
+            'cybernetics': '#ffa94d',
+            'media': '#ffd43b',
+            'culture': '#69db7c',
+            'communication': '#4dabf7',
+            'play': '#b197fc',
+            'history': '#868e96'
+        };
+
         function renderFolders() {
             const container = document.getElementById('folders-level');
             container.innerHTML = '';
@@ -605,9 +615,16 @@
                     `<div class="preview-img"><img src="${encodeURI(folder.path + '/' + file)}" loading="lazy"></div>`
                 ).join('');
 
+                const themeColor = themeColors[folder.theme] || '#555';
+                const statusBadge = folder.status === 'original'
+                    ? '<span style="background:#f30;color:#fff;padding:2px 6px;font-size:9px;margin-left:8px;">ORIGINAL</span>'
+                    : folder.status === 'core-theory'
+                        ? '<span style="background:#0f0;color:#000;padding:2px 6px;font-size:9px;margin-left:8px;">CORE</span>'
+                        : '';
+
                 card.innerHTML = `
-                    <div class="folder-head" data-folder="${fi}">
-                        <span class="folder-title">${folder.title}</span>
+                    <div class="folder-head" data-folder="${fi}" style="border-left: 3px solid ${themeColor}">
+                        <span class="folder-title">${folder.title}${statusBadge}</span>
                         <span class="folder-meta">
                             <span>${folder.files.length} imgs</span>
                         </span>
