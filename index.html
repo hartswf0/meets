@@ -9,10 +9,13 @@
         :root {
             --bg: #0a0a0a;
             --surface: #111;
-            --border: #222;
+            --border: #1a1a1a;
             --text: #e0e0e0;
-            --dim: #666;
+            --dim: #555;
             --accent: #0f0;
+            --t1: #ff3300;
+            --t2: #ffa500;
+            --t3: #555;
         }
 
         * {
@@ -24,54 +27,41 @@
         body {
             background: var(--bg);
             color: var(--text);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             min-height: 100vh;
             line-height: 1.6;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 40px 20px;
         }
 
         header {
             text-align: center;
-            margin-bottom: 60px;
-            padding-bottom: 40px;
-            border-bottom: 1px solid var(--border);
+            margin-bottom: 50px;
         }
 
         h1 {
-            font-size: 48px;
-            font-weight: 300;
-            letter-spacing: 8px;
+            font-size: 42px;
+            font-weight: 200;
+            letter-spacing: 12px;
             color: var(--accent);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .subtitle {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--dim);
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
         }
 
-        .stats {
-            margin-top: 20px;
-            font-size: 13px;
-            color: var(--dim);
-        }
-
-        .stats span {
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        /* Launch Button */
-        .launch-section {
+        /* Launch */
+        .launch {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
 
         .launch-btn {
@@ -79,8 +69,8 @@
             background: var(--accent);
             color: #000;
             text-decoration: none;
-            padding: 18px 50px;
-            font-size: 16px;
+            padding: 16px 48px;
+            font-size: 14px;
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -92,146 +82,130 @@
             box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
         }
 
-        .launch-hint {
-            margin-top: 15px;
-            font-size: 12px;
-            color: var(--dim);
+        /* About */
+        .about {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 30px;
+            margin-bottom: 40px;
         }
 
-        /* Tools Grid */
-        .section-title {
-            font-size: 12px;
+        .about h2 {
+            font-size: 14px;
+            color: var(--accent);
             letter-spacing: 2px;
             text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .about p {
+            font-size: 14px;
             color: var(--dim);
-            margin-bottom: 20px;
+            margin-bottom: 12px;
+        }
+
+        .about strong {
+            color: var(--text);
+        }
+
+        /* Tiers */
+        .tier {
+            margin-bottom: 30px;
+        }
+
+        .tier-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 1px solid var(--border);
         }
 
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 60px;
-        }
-
-        .tool-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 25px;
-            text-decoration: none;
-            color: var(--text);
-            transition: all 0.2s;
-        }
-
-        .tool-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-3px);
-        }
-
-        .tool-name {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--accent);
-        }
-
-        .tool-desc {
-            font-size: 13px;
-            color: var(--dim);
-            line-height: 1.5;
-        }
-
-        .tool-tag {
-            display: inline-block;
-            margin-top: 12px;
+        .tier-badge {
+            padding: 4px 10px;
             font-size: 10px;
-            padding: 3px 8px;
-            background: var(--border);
-            color: var(--dim);
-            text-transform: uppercase;
+            font-weight: 600;
             letter-spacing: 1px;
         }
 
-        /* Collections Preview */
-        .collections {
-            margin-bottom: 60px;
+        .tier-1 .tier-badge {
+            background: var(--t1);
+            color: #fff;
         }
 
-        .folders-grid {
+        .tier-2 .tier-badge {
+            background: var(--t2);
+            color: #000;
+        }
+
+        .tier-3 .tier-badge {
+            background: var(--t3);
+            color: #fff;
+        }
+
+        .tier-title {
+            font-size: 13px;
+            color: var(--dim);
+        }
+
+        .tier-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
+            gap: 10px;
         }
 
-        .folder-card {
+        .collection {
             background: var(--surface);
             border: 1px solid var(--border);
-            padding: 15px;
+            padding: 12px 15px;
+            font-size: 12px;
             cursor: pointer;
             transition: all 0.2s;
         }
 
-        .folder-card:hover {
+        .collection:hover {
             border-color: var(--accent);
         }
 
-        .folder-title {
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .tier-1 .collection {
+            border-left: 3px solid var(--t1);
         }
 
-        .folder-count {
-            font-size: 11px;
+        .tier-2 .collection {
+            border-left: 3px solid var(--t2);
+        }
+
+        .tier-3 .collection {
+            border-left: 3px solid var(--t3);
+        }
+
+        .collection-title {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+
+        .collection-meta {
+            font-size: 10px;
             color: var(--dim);
         }
 
-        /* Footer */
-        footer {
+        /* Links */
+        .links {
             text-align: center;
-            padding-top: 40px;
+            padding-top: 30px;
             border-top: 1px solid var(--border);
             font-size: 12px;
-            color: var(--dim);
         }
 
-        footer a {
-            color: var(--accent);
+        .links a {
+            color: var(--dim);
             text-decoration: none;
+            margin: 0 10px;
         }
 
-        /* Quick Start */
-        .quickstart {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 25px;
-            margin-bottom: 40px;
-        }
-
-        .quickstart h3 {
-            font-size: 14px;
+        .links a:hover {
             color: var(--accent);
-            margin-bottom: 15px;
-        }
-
-        .quickstart code {
-            display: block;
-            background: var(--bg);
-            padding: 12px 15px;
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 13px;
-            color: var(--text);
-            margin-bottom: 10px;
-        }
-
-        .quickstart p {
-            font-size: 12px;
-            color: var(--dim);
         }
     </style>
 </head>
@@ -241,97 +215,110 @@
         <header>
             <h1>MEETS</h1>
             <div class="subtitle">Visual Theory Archive</div>
-            <div class="stats">
-                <span id="folder-count">25</span> collections ·
-                <span id="image-count">0</span> images
-            </div>
         </header>
 
-        <div class="launch-section">
-            <a href="slideshow.html" class="launch-btn">Launch Gallery</a>
-            <div class="launch-hint">Browse, curate, and present your visual archive</div>
+        <div class="launch">
+            <a href="slideshow.html" class="launch-btn">Browse Archive</a>
         </div>
 
-        <div class="quickstart">
-            <h3>Quick Start</h3>
-            <code>python3 -m http.server 8080</code>
-            <p>Run from this directory, then open <a href="http://localhost:8080">localhost:8080</a></p>
-        </div>
-
-        <div class="section-title">Tools</div>
-        <div class="tools-grid">
-            <a href="slideshow.html" class="tool-card">
-                <div class="tool-name">Gallery</div>
-                <div class="tool-desc">Main viewer with zoom navigation, timeline editing, and presentation mode.
-                    Mobile-friendly.</div>
-                <span class="tool-tag">Primary</span>
-            </a>
-
-            <a href="v5.html" class="tool-card">
-                <div class="tool-name">Match Viewer</div>
-                <div class="tool-desc">Side-by-side comparison view for analyzing conceptual matchups.</div>
-                <span class="tool-tag">Analysis</span>
-            </a>
-
-            <a href="slideshow-03.html" class="tool-card">
-                <div class="tool-name">Archive Core</div>
-                <div class="tool-desc">Classic archive interface with search, filters, and multi-view modes.</div>
-                <span class="tool-tag">Legacy</span>
-            </a>
-
-            <a href="v2.html" class="tool-card">
-                <div class="tool-name">Dark Matter Ring</div>
-                <div class="tool-desc">Philosophical wrestling interface for Metis vs Thin Plans.</div>
-                <span class="tool-tag">Experimental</span>
-            </a>
-        </div>
-
-        <div class="collections">
-            <div class="section-title">Collections</div>
-            <div class="folders-grid" id="folders-grid">
-                <!-- Loaded dynamically -->
-            </div>
-        </div>
-
-        <footer>
-            <p>MEETS Visual Theory Archive</p>
-            <p style="margin-top: 10px;">
-                <a href="manifest.json">manifest.json</a> ·
-                <a href="index.md">index.md</a> ·
-                <a href="https://github.com">GitHub</a>
+        <div class="about">
+            <h2>About This Research</h2>
+            <p>
+                This archive documents a practice-based dissertation investigating how <strong>thick
+                    prompts</strong>—densely layered, context-rich instructions—transform human-AI collaboration from
+                mechanical query-response into genuine creative dialogue.
             </p>
-        </footer>
+            <p>
+                The work bridges <strong>media theory</strong> (McLuhan), <strong>cybernetics</strong> (Bateson), and
+                <strong>interpretive anthropology</strong> (Geertz) to develop new frameworks for understanding viscous,
+                meaning-rich exchanges between humans and AI systems.
+            </p>
+            <p>
+                <a href="DISSERTATION.md" style="color: var(--accent);">Read full dissertation overview →</a>
+            </p>
+        </div>
+
+        <div class="tier tier-1">
+            <div class="tier-header">
+                <span class="tier-badge">TIER 1</span>
+                <span class="tier-title">Original Contributions</span>
+            </div>
+            <div class="tier-grid" id="tier1"></div>
+        </div>
+
+        <div class="tier tier-2">
+            <div class="tier-header">
+                <span class="tier-badge">TIER 2</span>
+                <span class="tier-title">Direct Sources</span>
+            </div>
+            <div class="tier-grid" id="tier2"></div>
+        </div>
+
+        <div class="tier tier-3">
+            <div class="tier-header">
+                <span class="tier-badge">TIER 3</span>
+                <span class="tier-title">Context & Lineage</span>
+            </div>
+            <div class="tier-grid" id="tier3"></div>
+        </div>
+
+        <div class="links">
+            <a href="DISSERTATION.md">Dissertation</a>
+            <a href="BIBLIOGRAPHY.md">Bibliography</a>
+            <a href="manifest.json">Data</a>
+            <a href="https://github.com/hartswf0/meets">GitHub</a>
+        </div>
     </div>
 
     <script>
-        async function loadManifest() {
+        const tiers = {
+            1: [
+                'thick-prompts-as-cybernetic-molasses',
+                'thick-prompt-alchemy',
+                'conversational-viscosity',
+                'cool-radio-warm-myths',
+                'words-assemble-worlds-2'
+            ],
+            2: [
+                'dolphin-talk-code-of-relationship',
+                'grace-style-info-in-art',
+                'play-rules-serious-muddles',
+                'what-the-frog-s-eye-tells-the-brain',
+                'common-sense-as-a-cultural-system',
+                'culture-re-engineers-man',
+                'noise-between-chaos-death',
+                'satyrs-meals-host-guest-parasite',
+                'operative-ekphrasis-in-ai',
+                'molasses-talk-thick-ekphrasis'
+            ]
+        };
+
+        async function init() {
             try {
                 const res = await fetch('manifest.json');
                 const manifest = await res.json();
 
-                // Update stats
-                document.getElementById('folder-count').textContent = manifest.length;
-                const totalImages = manifest.reduce((sum, f) => sum + f.files.length, 0);
-                document.getElementById('image-count').textContent = totalImages;
-
-                // Render folders
-                const grid = document.getElementById('folders-grid');
                 manifest.forEach(folder => {
-                    const card = document.createElement('div');
-                    card.className = 'folder-card';
-                    card.innerHTML = `
-                        <div class="folder-title">${folder.title}</div>
-                        <div class="folder-count">${folder.files.length} images</div>
+                    let tier = 3;
+                    if (tiers[1].includes(folder.id)) tier = 1;
+                    else if (tiers[2].includes(folder.id)) tier = 2;
+
+                    const container = document.getElementById('tier' + tier);
+                    const div = document.createElement('div');
+                    div.className = 'collection';
+                    div.innerHTML = `
+                        <div class="collection-title">${folder.title}</div>
+                        <div class="collection-meta">${folder.files.length} images</div>
                     `;
-                    card.onclick = () => window.location.href = 'slideshow.html';
-                    grid.appendChild(card);
+                    div.onclick = () => window.location.href = 'slideshow.html';
+                    container.appendChild(div);
                 });
             } catch (e) {
                 console.log('Run: python3 -m http.server 8080');
             }
         }
 
-        loadManifest();
+        init();
     </script>
 </body>
 
