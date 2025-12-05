@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MEETS Gallery</title>
+    <style>
+        :root {
+            --bg: #000;
+            --surface: #0a0a0a;
+            --border: #1a1a1a;
+            --text: #fff;
+            --dim: #555;
+            --accent: #0f0;
+            --sel: #f30;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, sans-serif;
+            overflow: hidden;
+        }
+
+        .app {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* === NAV === */
+        nav {
+            background: var(--surface);
+            padding: 8px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            gap: 10px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .back-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--dim);
+            width: 32px;
+            height: 32px;
+            font-size: 16px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .back-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .back-btn.visible {
+            display: block;
+        }
+
+        .breadcrumb {
+            font-size: 13px;
+            color: var(--dim);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .breadcrumb span {
+            cursor: pointer;
+        }
+
+        .breadcrumb span:hover {
+            color: var(--text);
+        }
+
+        .breadcrumb .current {
+            color: var(--accent);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 6px 12px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn.active {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+        }
+
+        .btn.sm {
+            padding: 4px 8px;
+            font-size: 10px;
+        }
+
+        /* === MAIN === */
+        main {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .level {
+            position: absolute;
+            inset: 0;
+            overflow-y: auto;
+            padding: 12px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s;
+        }
+
+        .level.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* === LEVEL 0: FOLDERS === */
+        #folders-level {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+            align-content: start;
+        }
+
+        .folder-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .folder-head {
+            padding: 10px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .folder-head:hover {
+            background: #111;
+        }
+
+        .folder-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .folder-meta {
+            font-size: 10px;
+            color: var(--dim);
+            display: flex;
+            gap: 8px;
+        }
+
+        .folder-preview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            padding: 2px;
+        }
+
+        .preview-img {
+            aspect-ratio: 1;
+            background: var(--bg);
+            overflow: hidden;
+        }
+
+        .preview-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .folder-play {
+            padding: 8px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        /* === LEVEL 1: IMAGES === */
+        #images-level {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 8px;
+            align-content: start;
+        }
+
+        .img-card {
+            aspect-ratio: 4/3;
+            background: var(--surface);
+            border: 2px solid transparent;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .img-card:hover {
+            border-color: var(--border);
+        }
+
+        .img-card.selected {
+            border-color: var(--sel);
+        }
+
+        .img-card.in-tl {
+            border-color: var(--accent);
+        }
+
+        .img-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .img-card .badge {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            background: var(--accent);
+            color: #000;
+            font-size: 9px;
+            font-weight: bold;
+            padding: 2px 5px;
+        }
+
+        /* === LEVEL 2: PRESENT === */
+        #present-level {
+            display: flex;
+            flex-direction: column;
+            background: #000;
+        }
+
+        .present-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 0;
+        }
+
+        #present-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .tap-zones {
+            position: absolute;
+            inset: 0;
+            display: flex;
+        }
+
+        .tap-zone {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .present-bar {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .present-info {
+            font-size: 11px;
+            color: var(--dim);
+        }
+
+        .present-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .present-thumbs {
+            width: 100%;
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+            padding-top: 8px;
+        }
+
+        .p-thumb {
+            width: 40px;
+            height: 28px;
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            opacity: 0.5;
+        }
+
+        .p-thumb.active {
+            border-color: var(--accent);
+            opacity: 1;
+        }
+
+        .p-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* === BOTTOM BAR === */
+        .bottom {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 6px 10px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .tl-label {
+            font-size: 10px;
+            color: var(--dim);
+            white-space: nowrap;
+        }
+
+        .tl-scroll {
+            flex: 1;
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+            min-height: 36px;
+            align-items: center;
+        }
+
+        .tl-item {
+            width: 48px;
+            height: 32px;
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tl-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .tl-item .n {
+            position: absolute;
+            bottom: 1px;
+            left: 1px;
+            font-size: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--accent);
+            padding: 0 3px;
+        }
+
+        .tl-empty {
+            font-size: 10px;
+            color: var(--dim);
+        }
+
+        /* === IMPORT MODAL === */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .modal-title {
+            font-size: 14px;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px;
+            font-family: monospace;
+            font-size: 11px;
+            resize: none;
+        }
+
+        .modal-btns {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        /* === MOBILE === */
+        @media (max-width: 600px) {
+            #folders-level {
+                grid-template-columns: 1fr;
+            }
+
+            #images-level {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 4px;
+            }
+
+            .img-card {
+                aspect-ratio: 1;
+            }
+
+            .folder-preview {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <!-- Nav -->
+        <nav>
+            <div class="nav-left">
+                <button class="back-btn" id="back-btn">←</button>
+                <div class="breadcrumb" id="breadcrumb">
+                    <span class="current">All Folders</span>
+                </div>
+            </div>
+            <div class="nav-actions">
+                <button class="btn sm" id="btn-import">Import</button>
+                <button class="btn sm" id="btn-export">Export</button>
+                <button class="btn sm" id="btn-play-tl">▶ Timeline</button>
+            </div>
+        </nav>
+
+        <!-- Main -->
+        <main>
+            <!-- Level 0: Folders -->
+            <div id="folders-level" class="level active"></div>
+
+            <!-- Level 1: Images in folder -->
+            <div id="images-level" class="level"></div>
+
+            <!-- Level 2: Present -->
+            <div id="present-level" class="level">
+                <div class="present-main">
+                    <img id="present-img" src="" alt="">
+                    <div class="tap-zones">
+                        <div class="tap-zone" id="tap-prev"></div>
+                        <div class="tap-zone" id="tap-next"></div>
+                    </div>
+                </div>
+                <div class="present-bar">
+                    <div class="present-info">
+                        <span id="p-num">1</span>/<span id="p-total">1</span> · <span id="p-name"></span>
+                    </div>
+                    <div class="present-btns">
+                        <button class="btn sm" id="p-prev">◀</button>
+                        <button class="btn sm" id="p-play">▶</button>
+                        <button class="btn sm" id="p-next">▶</button>
+                        <button class="btn sm" id="p-close">✕</button>
+                    </div>
+                    <div class="present-thumbs" id="p-thumbs"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Timeline -->
+        <div class="bottom">
+            <span class="tl-label">TL(<span id="tl-count">0</span>)</span>
+            <div class="tl-scroll" id="tl-scroll">
+                <span class="tl-empty">Tap + to add</span>
+            </div>
+            <button class="btn sm" id="btn-clear-tl">Clear</button>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    <div class="modal" id="import-modal">
+        <div class="modal-box">
+            <div class="modal-title">Import Playlist</div>
+            <textarea id="import-text" placeholder="Paste exported playlist..."></textarea>
+            <div class="modal-btns">
+                <button class="btn" id="import-cancel">Cancel</button>
+                <button class="btn active" id="import-go">Load & Play</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // === STATE ===
+        let manifest = [];
+        let timeline = [];
+        let currentLevel = 0; // 0=folders, 1=images, 2=present
+        let currentFolder = -1;
+        let presenting = []; // current presentation array
+        let presentIdx = 0;
+        let autoPlay = null;
+
+        // === INIT ===
+        async function init() {
+            try {
+                const res = await fetch('manifest.json');
+                manifest = await res.json();
+                renderFolders();
+                setupEvents();
+            } catch (e) {
+                document.getElementById('folders-level').innerHTML = `
+                    <div style="padding:40px;text-align:center;color:var(--dim);">
+                        Open via <a href="http://localhost:8080/slideshow.html" style="color:var(--accent)">localhost:8080</a>
+                    </div>`;
+            }
+        }
+
+        // === NAVIGATION ===
+        function goToLevel(level) {
+            currentLevel = level;
+            document.querySelectorAll('.level').forEach((l, i) => {
+                l.classList.toggle('active', i === level);
+            });
+            document.getElementById('back-btn').classList.toggle('visible', level > 0);
+            updateBreadcrumb();
+        }
+
+        function updateBreadcrumb() {
+            const bc = document.getElementById('breadcrumb');
+            if (currentLevel === 0) {
+                bc.innerHTML = '<span class="current">All Folders</span>';
+            } else if (currentLevel === 1) {
+                const f = manifest[currentFolder];
+                bc.innerHTML = `
+                    <span onclick="goToLevel(0)">All</span> › 
+                    <span class="current">${f.title}</span>
+                `;
+            } else {
+                const f = manifest[currentFolder];
+                bc.innerHTML = `
+                    <span onclick="goToLevel(0)">All</span> › 
+                    <span onclick="goToLevel(1)">${f ? f.title : 'Folder'}</span> › 
+                    <span class="current">View</span>
+                `;
+            }
+        }
+
+        // === RENDER FOLDERS ===
+        function renderFolders() {
+            const container = document.getElementById('folders-level');
+            container.innerHTML = '';
+
+            manifest.forEach((folder, fi) => {
+                const card = document.createElement('div');
+                card.className = 'folder-card';
+
+                // Preview images (first 8)
+                const previews = folder.files.slice(0, 8).map(file =>
+                    `<div class="preview-img"><img src="${encodeURI(folder.path + '/' + file)}" loading="lazy"></div>`
+                ).join('');
+
+                card.innerHTML = `
+                    <div class="folder-head" data-folder="${fi}">
+                        <span class="folder-title">${folder.title}</span>
+                        <span class="folder-meta">
+                            <span>${folder.files.length} imgs</span>
+                        </span>
+                    </div>
+                    <div class="folder-preview">${previews}</div>
+                    <div class="folder-play">
+                        <button class="btn sm play-folder" data-folder="${fi}">▶ Play All</button>
+                        <button class="btn sm add-folder" data-folder="${fi}">+ Add to TL</button>
+                    </div>
+                `;
+
+                // Click title to zoom in
+                card.querySelector('.folder-head').onclick = () => zoomIntoFolder(fi);
+
+                // Play folder
+                card.querySelector('.play-folder').onclick = (e) => {
+                    e.stopPropagation();
+                    playFolder(fi);
+                };
+
+                // Add folder to timeline
+                card.querySelector('.add-folder').onclick = (e) => {
+                    e.stopPropagation();
+                    addFolderToTimeline(fi);
+                };
+
+                container.appendChild(card);
+            });
+        }
+
+        // === ZOOM INTO FOLDER ===
+        function zoomIntoFolder(fi) {
+            currentFolder = fi;
+            renderImages(fi);
+            goToLevel(1);
+        }
+
+        // === RENDER IMAGES ===
+        function renderImages(fi) {
+            const folder = manifest[fi];
+            const container = document.getElementById('images-level');
+            container.innerHTML = '';
+
+            folder.files.forEach((file, i) => {
+                const path = `${folder.path}/${file}`;
+                const inTL = timeline.some(t => t.path === path);
+                const num = timeline.findIndex(t => t.path === path) + 1;
+
+                const card = document.createElement('div');
+                card.className = 'img-card' + (inTL ? ' in-tl' : '');
+
+                card.innerHTML = `
+                    ${inTL ? `<span class="badge">${num}</span>` : ''}
+                    <img src="${encodeURI(path)}" loading="lazy">
+                `;
+
+                card.onclick = () => {
+                    // Add to timeline or view
+                    if (!inTL) {
+                        timeline.push({ path, file, folder: folder.id });
+                        renderTimeline();
+                        renderImages(fi);
+                    } else {
+                        // View this image in context
+                        presenting = folder.files.map(f => ({
+                            path: `${folder.path}/${f}`,
+                            file: f
+                        }));
+                        presentIdx = i;
+                        showPresent();
+                    }
+                };
+
+                card.ondblclick = () => {
+                    presenting = folder.files.map(f => ({
+                        path: `${folder.path}/${f}`,
+                        file: f
+                    }));
+                    presentIdx = i;
+                    showPresent();
+                };
+
+                container.appendChild(card);
+            });
+        }
+
+        // === PLAY FOLDER ===
+        function playFolder(fi) {
+            const folder = manifest[fi];
+            currentFolder = fi;
+            presenting = folder.files.map(f => ({
+                path: `${folder.path}/${f}`,
+                file: f
+            }));
+            presentIdx = 0;
+            showPresent();
+        }
+
+        // === ADD FOLDER TO TIMELINE ===
+        function addFolderToTimeline(fi) {
+            const folder = manifest[fi];
+            folder.files.forEach(file => {
+                const path = `${folder.path}/${file}`;
+                if (!timeline.some(t => t.path === path)) {
+                    timeline.push({ path, file, folder: folder.id });
+                }
+            });
+            renderTimeline();
+            renderFolders();
+        }
+
+        // === PRESENTATION ===
+        function showPresent() {
+            goToLevel(2);
+            updatePresent();
+        }
+
+        function updatePresent() {
+            if (presenting.length === 0) return;
+            const item = presenting[presentIdx];
+            document.getElementById('present-img').src = encodeURI(item.path);
+            document.getElementById('p-num').textContent = presentIdx + 1;
+            document.getElementById('p-total').textContent = presenting.length;
+            document.getElementById('p-name').textContent = item.file;
+
+            // Thumbs
+            const thumbs = document.getElementById('p-thumbs');
+            thumbs.innerHTML = '';
+            presenting.forEach((p, i) => {
+                const div = document.createElement('div');
+                div.className = 'p-thumb' + (i === presentIdx ? ' active' : '');
+                div.innerHTML = `<img src="${encodeURI(p.path)}">`;
+                div.onclick = () => { presentIdx = i; updatePresent(); };
+                thumbs.appendChild(div);
+            });
+        }
+
+        function prevSlide() {
+            presentIdx = (presentIdx - 1 + presenting.length) % presenting.length;
+            updatePresent();
+        }
+
+        function nextSlide() {
+            presentIdx = (presentIdx + 1) % presenting.length;
+            updatePresent();
+        }
+
+        function toggleAuto() {
+            const btn = document.getElementById('p-play');
+            if (autoPlay) {
+                clearInterval(autoPlay);
+                autoPlay = null;
+                btn.textContent = '▶';
+            } else {
+                autoPlay = setInterval(nextSlide, 2500);
+                btn.textContent = '⏸';
+            }
+        }
+
+        // === TIMELINE ===
+        function renderTimeline() {
+            document.getElementById('tl-count').textContent = timeline.length;
+            const container = document.getElementById('tl-scroll');
+
+            if (timeline.length === 0) {
+                container.innerHTML = '<span class="tl-empty">Tap images to add</span>';
+                return;
+            }
+
+            container.innerHTML = '';
+            timeline.forEach((item, i) => {
+                const div = document.createElement('div');
+                div.className = 'tl-item';
+                div.innerHTML = `
+                    <img src="${encodeURI(item.path)}">
+                    <span class="n">${i + 1}</span>
+                `;
+                div.onclick = () => {
+                    presenting = [...timeline];
+                    presentIdx = i;
+                    showPresent();
+                };
+                container.appendChild(div);
+            });
+        }
+
+        // === EVENTS ===
+        function setupEvents() {
+            document.getElementById('back-btn').onclick = () => {
+                if (currentLevel === 2) {
+                    if (autoPlay) toggleAuto();
+                    goToLevel(currentFolder >= 0 ? 1 : 0);
+                } else if (currentLevel === 1) {
+                    goToLevel(0);
+                }
+            };
+
+            document.getElementById('tap-prev').onclick = prevSlide;
+            document.getElementById('tap-next').onclick = nextSlide;
+            document.getElementById('p-prev').onclick = prevSlide;
+            document.getElementById('p-next').onclick = nextSlide;
+            document.getElementById('p-play').onclick = toggleAuto;
+            document.getElementById('p-close').onclick = () => {
+                if (autoPlay) toggleAuto();
+                goToLevel(currentFolder >= 0 ? 1 : 0);
+            };
+
+            document.getElementById('btn-play-tl').onclick = () => {
+                if (timeline.length === 0) {
+                    alert('Timeline empty');
+                    return;
+                }
+                presenting = [...timeline];
+                presentIdx = 0;
+                currentFolder = -1;
+                showPresent();
+            };
+
+            document.getElementById('btn-clear-tl').onclick = () => {
+                if (timeline.length && confirm('Clear timeline?')) {
+                    timeline = [];
+                    renderTimeline();
+                    if (currentLevel === 1) renderImages(currentFolder);
+                    if (currentLevel === 0) renderFolders();
+                }
+            };
+
+            document.getElementById('btn-export').onclick = () => {
+                if (!timeline.length) return alert('Timeline empty');
+                const txt = timeline.map((t, i) => `${i + 1}|${t.folder}|${t.file}`).join('\n');
+                const blob = new Blob([txt], { type: 'text/plain' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'playlist.txt';
+                a.click();
+            };
+
+            document.getElementById('btn-import').onclick = () => {
+                document.getElementById('import-modal').classList.add('open');
+            };
+
+            document.getElementById('import-cancel').onclick = () => {
+                document.getElementById('import-modal').classList.remove('open');
+            };
+
+            document.getElementById('import-go').onclick = () => {
+                const txt = document.getElementById('import-text').value.trim();
+                if (!txt) return;
+
+                timeline = [];
+                txt.split('\n').forEach(line => {
+                    const parts = line.split('|');
+                    if (parts.length >= 3) {
+                        const folder = manifest.find(f => f.id === parts[1]);
+                        if (folder) {
+                            const path = `${folder.path}/${parts[2]}`;
+                            timeline.push({ path, file: parts[2], folder: parts[1] });
+                        }
+                    }
+                });
+
+                document.getElementById('import-modal').classList.remove('open');
+                document.getElementById('import-text').value = '';
+                renderTimeline();
+
+                if (timeline.length > 0) {
+                    presenting = [...timeline];
+                    presentIdx = 0;
+                    currentFolder = -1;
+                    showPresent();
+                }
+            };
+
+            // Keyboard
+            document.addEventListener('keydown', (e) => {
+                if (currentLevel === 2) {
+                    if (e.key === 'ArrowLeft') prevSlide();
+                    if (e.key === 'ArrowRight') nextSlide();
+                    if (e.key === ' ') { e.preventDefault(); toggleAuto(); }
+                    if (e.key === 'Escape') document.getElementById('p-close').click();
+                }
+                if (e.key === 'Escape' && currentLevel < 2) {
+                    if (currentLevel === 1) goToLevel(0);
+                }
+            });
+
+            // Swipe
+            let tx = 0;
+            document.getElementById('present-level').addEventListener('touchstart', e => tx = e.touches[0].clientX);
+            document.getElementById('present-level').addEventListener('touchend', e => {
+                const diff = tx - e.changedTouches[0].clientX;
+                if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
+            });
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

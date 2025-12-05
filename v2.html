@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Dark Matter Meets Design – Metis vs Thin Plans</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        :root {
+            --bg-main: #020617;
+            --panel: #020617;
+            --border: rgba(148, 163, 184, 0.7);
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent-metis: #fbbf24;
+            --accent-metis-deep: #22c55e;
+            --accent-thin: #38bdf8;
+            --accent-thin-deep: #6366f1;
+            --winner-glow: rgba(56, 189, 248, 0.8);
+            --loser-dim: rgba(15, 23, 42, 0.65);
+            --ease: cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                sans-serif;
+            background: radial-gradient(circle at top, #020617, #020617 40%, #000 100%);
+            color: var(--text-main);
+            overflow: hidden;
+            /* keep one-viewport, no scroll */
+        }
+
+        .match-shell {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(90deg, #020617 0%, #000 100%);
+        }
+
+        /* Header */
+
+        .match-header {
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(51, 65, 85, 0.7);
+            background: radial-gradient(circle at 0 0,
+                    rgba(251, 191, 36, 0.15),
+                    transparent 55%),
+                radial-gradient(circle at 100% 0,
+                    rgba(56, 189, 248, 0.2),
+                    transparent 55%),
+                #020617;
+        }
+
+        .match-header span {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .match-title {
+            font-size: 0.78rem;
+            opacity: 0.9;
+        }
+
+        .match-pill {
+            padding: 0.15rem 0.55rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.75);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .match-id {
+            font-weight: 600;
+            letter-spacing: 0.12em;
+        }
+
+        /* Main layout */
+
+        .matchup {
+            flex: 1;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            position: relative;
+        }
+
+        .fighter-side {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fighter-side::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0.55;
+            pointer-events: none;
+        }
+
+        .fighter-side.metis {
+            background: radial-gradient(circle at 10% 0,
+                    rgba(251, 191, 36, 0.25),
+                    transparent 60%),
+                radial-gradient(circle at 0 100%,
+                    rgba(22, 163, 74, 0.28),
+                    transparent 60%),
+                #0f172a;
+        }
+
+        .fighter-side.metis::before {
+            background: radial-gradient(circle at 0 100%,
+                    rgba(34, 197, 94, 0.25),
+                    transparent 60%);
+        }
+
+        .fighter-side.thin-plans {
+            background: radial-gradient(circle at 90% 0,
+                    rgba(56, 189, 248, 0.3),
+                    transparent 60%),
+                radial-gradient(circle at 100% 100%,
+                    rgba(129, 140, 248, 0.28),
+                    transparent 60%),
+                #020617;
+        }
+
+        .fighter-side.thin-plans::before {
+            background: radial-gradient(circle at 100% 100%,
+                    rgba(56, 189, 248, 0.22),
+                    transparent 60%);
+        }
+
+        /* Belt / divider */
+
+        .belt {
+            width: 140px;
+            max-width: 23vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            pointer-events: none;
+        }
+
+        .belt-core {
+            width: 78px;
+            height: 75%;
+            max-height: 460px;
+            min-height: 260px;
+            border-radius: 999px;
+            border: 2px solid rgba(148, 163, 184, 0.8);
+            background: radial-gradient(circle at 50% 0, #0f172a 0%, #020617 60%);
+            box-shadow: 0 0 40px rgba(56, 189, 248, 0.35),
+                0 0 12px rgba(148, 163, 184, 0.9) inset;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            pointer-events: auto;
+            position: relative;
+            overflow: hidden;
+            animation: beltPulse 2.4s ease-in-out infinite alternate;
+            transition: transform 300ms var(--ease), box-shadow 300ms var(--ease),
+                border-color 300ms var(--ease);
+        }
+
+        .belt-core::before {
+            content: "";
+            position: absolute;
+            inset: 14px;
+            border-radius: inherit;
+            border: 1px dashed rgba(148, 163, 184, 0.6);
+            opacity: 0.9;
+        }
+
+        .belt-core:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 0 60px rgba(56, 189, 248, 0.6),
+                0 0 20px rgba(125, 211, 252, 0.5) inset;
+            border-color: rgba(125, 211, 252, 0.95);
+        }
+
+        .belt-emblem {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.7rem;
+            color: var(--text-main);
+            z-index: 1;
+        }
+
+        .belt-label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 999px;
+            border: 1px solid rgba(56, 189, 248, 0.9);
+            background: radial-gradient(circle at center,
+                    rgba(56, 189, 248, 0.22),
+                    transparent);
+        }
+
+        .belt-sub {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        .belt-cta {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+                "Liberation Mono", "Courier New", monospace;
+            font-size: 0.55rem;
+            opacity: 0.7;
+        }
+
+        @keyframes beltPulse {
+            0% {
+                box-shadow: 0 0 30px rgba(56, 189, 248, 0.35),
+                    0 0 12px rgba(148, 163, 184, 0.9) inset;
+            }
+
+            100% {
+                box-shadow: 0 0 55px rgba(56, 189, 248, 0.7),
+                    0 0 20px rgba(59, 130, 246, 0.7) inset;
+            }
+        }
+
+        /* Fighter card */
+
+        .fighter-card {
+            position: relative;
+            background: radial-gradient(circle at top left,
+                    rgba(148, 163, 184, 0.12),
+                    transparent 55%),
+                rgba(15, 23, 42, 0.96);
+            border-radius: 1.25rem;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            padding: 1.5rem 1.75rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.95);
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            transform-origin: center;
+            transition: transform 500ms var(--ease), box-shadow 400ms var(--ease),
+                opacity 400ms var(--ease), filter 400ms var(--ease);
+            opacity: 0;
+        }
+
+        .metis .fighter-card {
+            border-color: rgba(251, 191, 36, 0.75);
+        }
+
+        .thin-plans .fighter-card {
+            border-color: rgba(59, 130, 246, 0.8);
+        }
+
+        .fighter-card::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10%;
+            bottom: 10%;
+            width: 4px;
+            border-radius: 999px;
+            background: linear-gradient(to bottom,
+                    rgba(251, 191, 36, 0.85),
+                    rgba(22, 163, 74, 0.9));
+            opacity: 0.85;
+        }
+
+        .thin-plans .fighter-card::before {
+            background: linear-gradient(to bottom,
+                    rgba(56, 189, 248, 0.9),
+                    rgba(99, 102, 241, 0.9));
+        }
+
+        .fighter-card-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .fighter-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .fighter-name {
+            font-family: "Times New Roman", ui-serif, Georgia, "Times", serif;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 1.2rem;
+        }
+
+        .fighter-theory {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            text-align: right;
+            max-width: 60%;
+        }
+
+        .score-row {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .score-main {
+            font-size: 3.1rem;
+            line-height: 1;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.2rem;
+        }
+
+        .score-subtle {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .fighter-divider {
+            height: 1px;
+            border-radius: 999px;
+            margin: 0.3rem 0 0.35rem;
+            background: linear-gradient(to right,
+                    transparent,
+                    rgba(148, 163, 184, 0.6),
+                    transparent);
+        }
+
+        .card-subtitle {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .attribute-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.8rem;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
+
+        .attribute-list li {
+            display: flex;
+            gap: 0.35rem;
+            align-items: flex-start;
+        }
+
+        .attribute-bullet {
+            width: 0.4rem;
+            height: 0.4rem;
+            border-radius: 999px;
+            margin-top: 0.25rem;
+            background: rgba(148, 163, 184, 0.85);
+            flex-shrink: 0;
+        }
+
+        .metis .attribute-bullet {
+            background: rgba(251, 191, 36, 0.9);
+        }
+
+        .thin-plans .attribute-bullet {
+            background: rgba(56, 189, 248, 0.95);
+        }
+
+        .verdict-row {
+            margin-top: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            font-size: 0.78rem;
+        }
+
+        .verdict-label {
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.7rem;
+        }
+
+        .verdict-badge {
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+                "Liberation Mono", "Courier New", monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            border: 1px solid rgba(148, 163, 184, 0.8);
+        }
+
+        .verdict-dot {
+            width: 0.45rem;
+            height: 0.45rem;
+            border-radius: 999px;
+            background: #a855f7;
+        }
+
+        .verdict-light {
+            background: radial-gradient(circle at top, #22c55e, #16a34a);
+            border-color: rgba(187, 247, 208, 0.95);
+            color: #ecfdf5;
+            box-shadow: 0 0 18px rgba(34, 197, 94, 0.7);
+        }
+
+        .verdict-light .verdict-dot {
+            background: #bbf7d0;
+        }
+
+        .verdict-shadow {
+            background: radial-gradient(circle at top, #4b5563, #020617);
+            border-color: rgba(148, 163, 184, 0.9);
+            color: #e5e7eb;
+            box-shadow: 0 0 12px rgba(31, 41, 55, 0.9);
+        }
+
+        .verdict-shadow .verdict-dot {
+            background: #9ca3af;
+        }
+
+        .verdict-void {
+            background: radial-gradient(circle at top, #ef4444, #7f1d1d);
+            border-color: rgba(252, 165, 165, 0.95);
+            color: #fee2e2;
+            box-shadow: 0 0 18px rgba(248, 113, 113, 0.8);
+        }
+
+        .verdict-void .verdict-dot {
+            background: #fee2e2;
+        }
+
+        .tagline {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-align: right;
+        }
+
+        /* Winner / loser styling */
+
+        .fighter-card[data-result="winner"] {
+            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.95),
+                0 0 30px var(--winner-glow);
+            filter: saturate(1.08);
+        }
+
+        .fighter-card[data-result="loser"] {
+            filter: grayscale(0.35) brightness(0.96);
+        }
+
+        .fighter-card[data-result="loser"]::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom,
+                    rgba(15, 23, 42, 0.3),
+                    var(--loser-dim));
+            border-radius: inherit;
+            mix-blend-mode: multiply;
+            pointer-events: none;
+        }
+
+        /* Animations: entry + hover */
+
+        .fighter-card.init-left {
+            transform: translateX(-40px);
+        }
+
+        .fighter-card.init-right {
+            transform: translateX(40px);
+        }
+
+        .fighter-card.enter {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fighter-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 26px 70px rgba(15, 23, 42, 0.95),
+                0 0 40px rgba(148, 163, 184, 0.5);
+        }
+
+        /* Modal */
+
+        .comparison-modal {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at top,
+                    rgba(15, 23, 42, 0.9),
+                    rgba(15, 23, 42, 0.98)),
+                rgba(15, 23, 42, 0.98);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 250ms var(--ease);
+            z-index: 40;
+        }
+
+        .comparison-modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-panel {
+            width: min(780px, 92vw);
+            max-height: 80vh;
+            background: linear-gradient(135deg,
+                    rgba(15, 23, 42, 0.98),
+                    rgba(15, 23, 42, 0.98)),
+                #020617;
+            border-radius: 1.25rem;
+            border: 1px solid rgba(148, 163, 184, 0.8);
+            box-shadow: 0 30px 80px rgba(15, 23, 42, 1);
+            padding: 1.6rem 1.7rem 1.4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-panel::before {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background: radial-gradient(circle at 0 0,
+                    rgba(251, 191, 36, 0.18),
+                    transparent 55%),
+                radial-gradient(circle at 100% 0,
+                    rgba(56, 189, 248, 0.2),
+                    transparent 55%);
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        .modal-body {
+            position: relative;
+            z-index: 1;
+            max-height: calc(80vh - 3.6rem);
+            overflow-y: auto;
+        }
+
+        .modal-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .modal-title {
+            font-size: 1rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .modal-subtitle {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 0.8rem;
+            right: 0.9rem;
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.85);
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            transition: background 200ms var(--ease), transform 200ms var(--ease);
+            z-index: 2;
+        }
+
+        .modal-close:hover {
+            background: rgba(30, 64, 175, 0.9);
+            transform: translateY(-1px);
+        }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            font-size: 0.82rem;
+            margin-top: 0.3rem;
+        }
+
+        .modal-section-title {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+        }
+
+        .modal-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .modal-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.4rem;
+        }
+
+        .modal-bullet {
+            width: 0.4rem;
+            height: 0.4rem;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.9);
+            margin-top: 0.3rem;
+            flex-shrink: 0;
+        }
+
+        .modal-bullet.metis {
+            background: rgba(251, 191, 36, 0.95);
+        }
+
+        .modal-bullet.thin {
+            background: rgba(56, 189, 248, 0.95);
+        }
+
+        .modal-footnote {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 0.7rem;
+        }
+
+        /* Responsive: mobile – stack cards, belt horizontal */
+
+        @media (max-width: 900px) {
+            .belt {
+                width: 120px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .match-header {
+                padding-inline: 1rem;
+            }
+
+            .matchup {
+                flex-direction: column;
+            }
+
+            .fighter-side {
+                padding: 0.85rem 1rem;
+            }
+
+            .fighter-side.metis,
+            .fighter-side.thin-plans {
+                min-height: 0;
+                flex: 4;
+            }
+
+            .belt {
+                width: 100%;
+                max-width: none;
+                flex: 2;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .belt-core {
+                width: min(260px, 80vw);
+                height: 76px;
+                max-height: none;
+            }
+
+            .belt-emblem {
+                writing-mode: horizontal-tb;
+                text-orientation: mixed;
+                flex-direction: row;
+            }
+
+            .fighter-card {
+                max-width: 520px;
+            }
+
+            body {
+                overflow: hidden;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .match-header {
+                font-size: 0.72rem;
+            }
+
+            .fighter-card {
+                padding: 1.15rem 1.25rem;
+            }
+
+            .fighter-name {
+                font-size: 1rem;
+                letter-spacing: 0.16em;
+            }
+
+            .score-main {
+                font-size: 2.4rem;
+            }
+
+            .verdict-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .modal-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="match-shell">
+        <header class="match-header">
+            <span>
+                <span class="match-title">Dark Matter Meets Design</span>
+                <span class="match-pill">philosophical wrestling interface</span>
+            </span>
+            <span>
+                <span class="match-id">MATCH M12</span>
+            </span>
+        </header>
+
+        <main class="matchup" aria-label="Metis versus Thin Plans comparison">
+            <!-- Left: Metis -->
+            <section class="fighter-side metis" aria-label="Metis side">
+                <article class="fighter-card init-left" data-result="winner" aria-label="Metis fighter card – winner">
+                    <div class="fighter-card-inner">
+                        <div class="fighter-header-row">
+                            <h2 class="fighter-name">Metis</h2>
+                            <div class="fighter-theory">Embodied, Situated Craft</div>
+                        </div>
+
+                        <div class="score-row">
+                            <div class="score-main" aria-label="Metis score">92</div>
+                            <div>
+                                <div class="score-label">Score</div>
+                                <div class="score-subtle">
+                                    Thick, adaptive, field-tested knowing.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fighter-divider"></div>
+
+                        <div class="card-subtitle">Key attributes</div>
+                        <ul class="attribute-list">
+                            <li>
+                                <span class="attribute-bullet"></span>
+                                <span>Reads context in motion instead of freezing it in blueprints.</span>
+                            </li>
+                            <li>
+                                <span class="attribute-bullet"></span>
+                                <span>Negotiates with recalcitrant materials rather than overriding them.</span>
+                            </li>
+                            <li>
+                                <span class="attribute-bullet"></span>
+                                <span>Thickens plans through feedback, repair, and iterative attunement.</span>
+                            </li>
+                        </ul>
+
+                        <div class="verdict-row">
+                            <div>
+                                <div class="verdict-label">Verdict</div>
+                                <div class="verdict-badge verdict-light" aria-label="Verdict: Light">
+                                    <span class="verdict-dot"></span>
+                                    <span>Light</span>
+                                </div>
+                            </div>
+                            <div class="tagline">
+                                Wins when reality pushes back and the script starts to fray.
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <!-- Belt / divider -->
+            <aside class="belt">
+                <button class="belt-core" type="button" aria-label="Open full comparison breakdown">
+                    <div class="belt-emblem">
+                        <span class="belt-label">M12</span>
+                        <span class="belt-sub">Metis vs Thin Plans</span>
+                        <span class="belt-cta">Tap for breakdown</span>
+                    </div>
+                </button>
+            </aside>
+
+            <!-- Right: Thin Plans -->
+            <section class="fighter-side thin-plans" aria-label="Thin Plans side">
+                <article class="fighter-card init-right" data-result="loser"
+                    aria-label="Thin Plans fighter card – shadow">
+                    <div class="fighter-card-inner">
+                        <div class="fighter-header-row">
+                            <h2 class="fighter-name">Thin Plans</h2>
+                            <div class="fighter-theory">Top-Down Blueprint Logic</div>
+                        </div>
+
+                        <div class="score-row">
+                            <div class="score-main" aria-label="Thin Plans score">68</div>
+                            <div>
+                                <div class="score-label">Score</div>
+                                <div class="score-subtle">
+                                    Clean diagrams, brittle when the world refuses to cooperate.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fighter-divider"></div>
+
+                        <div class="card-subtitle">Key attributes</div>
+                        <ul class="attribute-list">
+                            <li>
+                                <span class="attribute-bullet"></span>
+                                <span>Optimizes from above, assuming the ground will obey the model.</span>
+                            </li>
+                            <li>
+                                <span class="attribute-bullet"></span>
+                                <span>Minimizes ambiguity instead of thickening it into usable structure.</span>
+                            </li>
+                            <li>
+                                <span class="attribute-bullet"></span>
+                                <span>Struggles when recalcitrant materials talk back or refuse the script.</span>
+                            </li>
+                        </ul>
+
+                        <div class="verdict-row">
+                            <div>
+                                <div class="verdict-label">Verdict</div>
+                                <div class="verdict-badge verdict-shadow" aria-label="Verdict: Shadow">
+                                    <span class="verdict-dot"></span>
+                                    <span>Shadow</span>
+                                </div>
+                            </div>
+                            <div class="tagline">
+                                Looks elegant on paper, stumbles when asked to improvise with reality.
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal: full comparison breakdown -->
+    <div class="comparison-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-panel">
+            <button class="modal-close" type="button" aria-label="Close comparison breakdown" data-close-modal>
+                ✕
+            </button>
+            <div class="modal-body">
+                <div class="modal-title-row">
+                    <div>
+                        <div class="modal-title" id="modal-title">
+                            Metis vs Thin Plans
+                        </div>
+                        <div class="modal-subtitle">Match M12 &mdash; interpretive card</div>
+                    </div>
+                    <div class="modal-subtitle">
+                        Verdict: <strong>Light</strong> favours thick, negotiated design.
+                    </div>
+                </div>
+
+                <div class="modal-grid">
+                    <section>
+                        <div class="modal-section-title">Metis: thick, adaptive plans</div>
+                        <ul class="modal-list">
+                            <li>
+                                <span class="modal-bullet metis"></span>
+                                <span>Plans as <em>promises to negotiate</em> with materials, not commands to override
+                                    them.</span>
+                            </li>
+                            <li>
+                                <span class="modal-bullet metis"></span>
+                                <span>Leans on examples, metaphors, and ritual phrasing as thickening agents for AI
+                                    prompts.</span>
+                            </li>
+                            <li>
+                                <span class="modal-bullet metis"></span>
+                                <span>Treats every mis-build as a diagnostic: where did language, world, and agent stop
+                                    agreeing?</span>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <div class="modal-section-title">Thin Plans: brittle, schematic control</div>
+                        <ul class="modal-list">
+                            <li>
+                                <span class="modal-bullet thin"></span>
+                                <span>Imagines the world as inert substrate for instructions rather than a recalcitrant
+                                    partner.</span>
+                            </li>
+                            <li>
+                                <span class="modal-bullet thin"></span>
+                                <span>Favors single-shot, one-way commands over multi-turn, context-thickening
+                                    dialogue.</span>
+                            </li>
+                            <li>
+                                <span class="modal-bullet thin"></span>
+                                <span>Collapses when the AI’s errors are treated as bugs to erase, not signals to
+                                    reinterpret.</span>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+
+                <p class="modal-footnote">
+                    Read this matchup as a design diagnostic: if your interface feels like Thin Plans,
+                    add thickening agents &mdash; roles, metaphors, examples, and negotiated steps &mdash;
+                    until the AI behaves more like Metis in the field than a spreadsheet in the sky.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            "use strict";
+
+            // Entry animation for cards
+            window.addEventListener("DOMContentLoaded", function () {
+                const cards = document.querySelectorAll(".fighter-card");
+                cards.forEach((card, index) => {
+                    const delay = index * 120;
+                    setTimeout(() => {
+                        card.classList.add("enter");
+                    }, 140 + delay);
+                });
+            });
+
+            const beltButton = document.querySelector(".belt-core");
+            const modal = document.querySelector(".comparison-modal");
+            const closeButton = document.querySelector("[data-close-modal]");
+
+            function openModal() {
+                if (!modal) return;
+                modal.classList.add("open");
+                modal.setAttribute("aria-hidden", "false");
+            }
+
+            function closeModal() {
+                if (!modal) return;
+                modal.classList.remove("open");
+                modal.setAttribute("aria-hidden", "true");
+            }
+
+            if (beltButton) {
+                beltButton.addEventListener("click", openModal);
+                beltButton.addEventListener("keydown", (evt) => {
+                    if (evt.key === "Enter" || evt.key === " ") {
+                        evt.preventDefault();
+                        openModal();
+                    }
+                });
+            }
+
+            if (closeButton) {
+                closeButton.addEventListener("click", closeModal);
+            }
+
+            if (modal) {
+                modal.addEventListener("click", (evt) => {
+                    if (evt.target === modal) {
+                        closeModal();
+                    }
+                });
+
+                document.addEventListener("keydown", (evt) => {
+                    if (evt.key === "Escape" && modal.classList.contains("open")) {
+                        closeModal();
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+
+</html>

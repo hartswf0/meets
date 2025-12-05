@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dark Matter Meets Design</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Space+Grotesk:wght@400;600;700&display=swap');
+
+        :root {
+            --void: #0a0a0f;
+            --shadow: #14172a;
+            --card: #1b2036;
+            --card2: #161a2e;
+
+            --gold: #d4af37;
+            --cyan: #4dd9ff;
+            --pink: #fb7185;
+
+            --cyanGlow: rgba(77, 217, 255, .26);
+            --goldGlow: rgba(212, 175, 55, .26);
+            --dim: #7a8199;
+
+            --ink: #ffffff;
+            --inkSoft: rgba(255, 255, 255, .82);
+
+            --line: rgba(77, 217, 255, .18);
+            --lineSoft: rgba(255, 255, 255, .10);
+
+            --ease: cubic-bezier(.23, 1, .32, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background:
+                radial-gradient(ellipse at top, #1a1d2e 0%, #0a0a0f 60%, #07070c 100%);
+            color: var(--ink);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* subtle retro grid + vignette (kept quiet) */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 18% 30%, rgba(77, 217, 255, .05) 0%, transparent 45%),
+                radial-gradient(circle at 82% 72%, rgba(212, 175, 55, .05) 0%, transparent 45%),
+                repeating-linear-gradient(0deg, rgba(255, 255, 255, .035) 0 1px, transparent 1px 7px),
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, .02) 0 1px, transparent 1px 12px);
+            opacity: .55;
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: overlay;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* HEADER */
+        header {
+            text-align: center;
+            margin-bottom: 2.2rem;
+            padding: 2.2rem 0 1.6rem;
+            border-bottom: 1px solid var(--lineSoft);
+            background:
+                linear-gradient(135deg, rgba(77, 217, 255, .06), rgba(212, 175, 55, .05));
+            clip-path: polygon(26px 0, 100% 0, 100% calc(100% - 26px),
+                    calc(100% - 26px) 100%, 0 100%, 0 26px);
+        }
+
+        .series-label {
+            font-family: 'Cinzel', serif;
+            font-size: .85rem;
+            letter-spacing: .28em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: .9rem;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.4rem, 5.6vw, 4.3rem);
+            font-weight: 800;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            margin-bottom: .5rem;
+            text-shadow: 0 0 26px var(--cyanGlow);
+        }
+
+        .subtitle {
+            color: var(--inkSoft);
+            font-size: 1rem;
+            letter-spacing: .10em;
+            text-transform: uppercase;
+            opacity: .85;
+        }
+
+        /* Series Essay Panel (collapsible, “header with the essay”) */
+        .preamble {
+            margin: 1.4rem auto 0;
+            max-width: 1100px;
+            text-align: left;
+        }
+
+        details.preambleBox {
+            border: 1px solid rgba(77, 217, 255, .18);
+            background: rgba(0, 0, 0, .32);
+            box-shadow: inset 0 0 40px rgba(77, 217, 255, .04);
+            padding: 1rem 1.1rem;
+            clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px),
+                    calc(100% - 18px) 100%, 0 100%, 0 18px);
+        }
+
+        details.preambleBox summary {
+            list-style: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            user-select: none;
+        }
+
+        details.preambleBox summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .preambleTitle {
+            font-family: 'Cinzel', serif;
+            color: var(--cyan);
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .preambleHint {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            font-size: .78rem;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, .65);
+            border: 1px solid rgba(255, 255, 255, .12);
+            padding: .35rem .6rem;
+            background: rgba(255, 255, 255, .04);
+        }
+
+        .preambleBody {
+            margin-top: .9rem;
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            padding-top: .9rem;
+            color: rgba(255, 255, 255, .86);
+            line-height: 1.75;
+            font-size: .98rem;
+        }
+
+        .preambleBody p {
+            margin-bottom: .85rem;
+            color: rgba(255, 255, 255, .86);
+        }
+
+        .preambleBody .keyline {
+            border-left: 3px solid var(--gold);
+            padding-left: .9rem;
+            color: rgba(255, 255, 255, .84);
+            font-style: italic;
+        }
+
+        /* BRACKET GRID */
+        .bracket {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(720px, 1fr));
+            gap: 2.2rem;
+            margin-top: 2rem;
+        }
+
+        .match-card {
+            background: linear-gradient(180deg, var(--card), var(--card2));
+            border: 2px solid rgba(77, 217, 255, .18);
+            padding: 0;
+            cursor: pointer;
+            transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+            position: relative;
+            clip-path: polygon(22px 0, 100% 0, 100% calc(100% - 22px),
+                    calc(100% - 22px) 100%, 0 100%, 0 22px);
+            overflow: hidden;
+        }
+
+        .match-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, var(--cyan), var(--gold)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity .35s var(--ease);
+            pointer-events: none;
+        }
+
+        .match-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(77, 217, 255, .55);
+            box-shadow: 0 0 46px var(--cyanGlow), inset 0 0 40px rgba(77, 217, 255, .05);
+        }
+
+        .match-card:hover::before {
+            opacity: .55;
+        }
+
+        .match-header {
+            background: linear-gradient(135deg, rgba(77, 217, 255, .10), rgba(212, 175, 55, .08));
+            padding: 1.35rem 1.6rem;
+            border-bottom: 1px solid rgba(77, 217, 255, .16);
+            position: relative;
+        }
+
+        .match-id {
+            position: absolute;
+            top: 1.35rem;
+            right: 1.6rem;
+            font-family: 'Cinzel', serif;
+            font-size: .82rem;
+            color: var(--gold);
+            letter-spacing: .22em;
+        }
+
+        .match-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.28rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            padding-right: 6rem;
+        }
+
+        .match-body {
+            padding: 1.6rem;
+        }
+
+        .teaser {
+            color: var(--dim);
+            font-size: .98rem;
+            line-height: 1.65;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            padding-left: .95rem;
+            border-left: 2px solid var(--gold);
+        }
+
+        /* FIGHTERS + minimal seam (no belt) */
+        .fighters-grid {
+            display: grid;
+            grid-template-columns: 1fr 110px 1fr;
+            gap: 1.6rem;
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+
+        .fighter-panel {
+            background: rgba(0, 0, 0, .36);
+            border: 1px solid rgba(77, 217, 255, .14);
+            padding: 1.45rem;
+            clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px),
+                    calc(100% - 16px) 100%, 0 100%, 0 16px);
+            position: relative;
+        }
+
+        .fighter-panel.winner {
+            border-color: rgba(77, 217, 255, .60);
+            box-shadow: inset 0 0 34px var(--cyanGlow);
+        }
+
+        .fighter-panel.loser {
+            opacity: .62;
+            filter: grayscale(.22);
+        }
+
+        .fighter-name {
+            font-family: 'Cinzel', serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: .45rem;
+            color: var(--cyan);
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+
+        .fighter-theory {
+            font-size: .86rem;
+            color: var(--dim);
+            margin-bottom: .9rem;
+            line-height: 1.35;
+        }
+
+        .fighter-score {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--gold);
+            text-shadow: 0 0 18px var(--goldGlow);
+            line-height: 1;
+        }
+
+        .fighter-label {
+            margin-top: .5rem;
+            font-size: .76rem;
+            color: rgba(255, 255, 255, .65);
+            text-transform: uppercase;
+            letter-spacing: .14em;
+        }
+
+        /* Minimal seam medallion */
+        .vs-divider {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: .8rem;
+        }
+
+        .seam {
+            width: 2px;
+            height: 68px;
+            background: linear-gradient(180deg, transparent, rgba(255, 255, 255, .16), transparent);
+            box-shadow: 0 0 18px rgba(77, 217, 255, .10);
+        }
+
+        .vs-icon {
+            width: 74px;
+            height: 74px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle, rgba(212, 175, 55, .12) 0%, transparent 70%);
+            position: relative;
+            box-shadow: 0 0 24px rgba(212, 175, 55, .12);
+        }
+
+        .vs-icon::before {
+            content: '';
+            position: absolute;
+            width: 92px;
+            height: 92px;
+            border: 1px solid rgba(77, 217, 255, .28);
+            border-radius: 50%;
+        }
+
+        .vs-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--gold);
+            text-shadow: 0 0 18px var(--goldGlow);
+            letter-spacing: .08em;
+        }
+
+        /* QUICK COMPARE */
+        .quick-compare {
+            background: rgba(0, 0, 0, .28);
+            border: 1px solid rgba(77, 217, 255, .10);
+            overflow: hidden;
+            clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px),
+                    calc(100% - 14px) 100%, 0 100%, 0 14px);
+        }
+
+        .compare-row {
+            display: grid;
+            grid-template-columns: 180px 1fr 1fr;
+            gap: 1rem;
+            padding: .95rem 1.2rem;
+            align-items: center;
+            border-bottom: 1px solid rgba(77, 217, 255, .06);
+            transition: background .25s var(--ease);
+        }
+
+        .compare-row:last-child {
+            border-bottom: none;
+        }
+
+        .compare-row:hover {
+            background: rgba(77, 217, 255, .05);
+        }
+
+        .compare-label {
+            font-weight: 800;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-size: .85rem;
+            letter-spacing: .06em;
+        }
+
+        .compare-val {
+            color: rgba(255, 255, 255, .78);
+            font-size: .92rem;
+            line-height: 1.35;
+        }
+
+        .drama-label {
+            text-align: center;
+            margin-top: 1.1rem;
+            padding: .95rem 1rem;
+            background: rgba(77, 217, 255, .05);
+            border-top: 1px solid rgba(77, 217, 255, .45);
+            color: var(--cyan);
+            font-size: .92rem;
+            font-weight: 700;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            transition: background .25s var(--ease);
+        }
+
+        .match-card:hover .drama-label {
+            background: rgba(77, 217, 255, .08);
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 10, 15, .96);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            max-width: 1400px;
+            margin: 2rem auto;
+            background: linear-gradient(180deg, var(--card), var(--card2));
+            border: 2px solid rgba(77, 217, 255, .55);
+            padding: 2.2rem;
+            clip-path: polygon(30px 0, 100% 0, 100% calc(100% - 30px),
+                    calc(100% - 30px) 100%, 0 100%, 0 30px);
+            box-shadow: 0 0 70px rgba(77, 217, 255, .10);
+            position: relative;
+        }
+
+        .close {
+            position: sticky;
+            top: 0;
+            float: right;
+            font-size: 2.4rem;
+            line-height: 1;
+            cursor: pointer;
+            color: var(--gold);
+            transition: transform .25s var(--ease), color .25s var(--ease);
+            user-select: none;
+        }
+
+        .close:hover {
+            color: var(--cyan);
+            transform: rotate(90deg);
+        }
+
+        .full-essay {
+            background: rgba(0, 0, 0, .36);
+            padding: 1.6rem;
+            margin: 1.7rem 0;
+            border-left: 3px solid var(--gold);
+            max-height: 420px;
+            overflow-y: auto;
+            clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px),
+                    calc(100% - 18px) 100%, 0 100%, 0 18px);
+        }
+
+        .full-essay p {
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, .86);
+            line-height: 1.75;
+            font-size: 1rem;
+        }
+
+        .detail-fighters {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.2rem;
+            margin: 2.2rem 0;
+        }
+
+        .detail-fighter h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--cyan);
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+
+        .assessment-item {
+            background: rgba(0, 0, 0, .36);
+            padding: 1.2rem;
+            margin: .95rem 0;
+            border-left: 3px solid var(--cyan);
+            clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px),
+                    calc(100% - 14px) 100%, 0 100%, 0 14px);
+        }
+
+        .assessment-item.shadow-verdict {
+            border-color: var(--dim);
+        }
+
+        .assessment-item.void-verdict {
+            border-color: #ff3366;
+        }
+
+        .verdict-badge {
+            display: inline-block;
+            padding: .35rem .9rem;
+            border: 1px solid;
+            font-size: .75rem;
+            font-weight: 800;
+            margin-top: .55rem;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+        }
+
+        .verdict-badge.light {
+            border-color: var(--cyan);
+            color: var(--cyan);
+        }
+
+        .verdict-badge.shadow {
+            border-color: var(--dim);
+            color: var(--dim);
+        }
+
+        .verdict-badge.void {
+            border-color: #ff3366;
+            color: #ff3366;
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, var(--cyan), var(--gold));
+            color: var(--void);
+            border: none;
+            padding: 1rem 2.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: .11em;
+            clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px),
+                    calc(100% - 14px) 100%, 0 100%, 0 14px);
+            transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px var(--cyanGlow);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .bracket {
+                grid-template-columns: 1fr;
+            }
+
+            .fighters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .vs-divider {
+                margin: 1.2rem 0;
+            }
+
+            .seam {
+                display: none;
+            }
+
+            .detail-fighters {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="series-label">Mythologies Series</div>
+            <h1>Dark Matter Meets Design</h1>
+            <div class="subtitle">Wrestling cards for ideas // essays inside the holds</div>
+
+            <div class="preamble">
+                <details class="preambleBox" open>
+                    <summary>
+                        <div class="preambleTitle">Series Essay (Preamble)</div>
+                        <div class="preambleHint">toggle</div>
+                    </summary>
+                    <div class="preambleBody" id="seriesEssay">
+                        <p class="keyline">
+                            These matches treat theories like fighters: each one wins or loses based on how it survives
+                            contact with the messy world.
+                            The point is not “who is smarter,” but which model remains coherent under pressure.
+                        </p>
+                        <p>
+                            A <strong>thickening agent</strong> is anything that adds context, nuance, and operative
+                            depth—turning thin instructions into
+                            something that can negotiate, repair, and adapt. This bracket makes that legible: you can
+                            literally see when a theory
+                            collapses into brittle classification versus when it becomes a usable tool.
+                        </p>
+                        <p>
+                            Click a match to open the full essay, then read the criteria like you’d read a fight replay:
+                            what counted as a clean hit?
+                            what was a weak stance? where did the idea get pinned by reality?
+                        </p>
+                    </div>
+                </details>
+            </div>
+        </header>
+
+        <div class="bracket" id="bracket"></div>
+    </div>
+
+    <div class="modal" id="modal" aria-hidden="true">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()" aria-label="Close modal">&times;</span>
+            <div id="detail"></div>
+        </div>
+    </div>
+
+    <script>
+        const matches = [
+            {
+                id: "M12",
+                when: ["THE BISHOP", "THE FOREMAN"],
+                theories: ["Augustinian Referential", "Wittgensteinian Language-Games"],
+                scores: [35, 92],
+                winner: 1,
+                teaser:
+                    "On the outskirts of an ancient city—a sprawling labyrinth of twisting alleyways, modern boulevards, and haphazard extensions—two figures stand amidst a dusty construction site. One is THE BISHOP, gesturing with pointed finger, baptizing the world with nouns. The other is THE FOREMAN, restless, pragmatic, with pockets bristling with tools...",
+                essay:
+                    "On the outskirts of an ancient city—a sprawling labyrinth of twisting alleyways, modern boulevards, and haphazard extensions—two figures stand amidst a dusty construction site. The ground is littered with building stones: blocks, pillars, slabs, and beams.\n\nOne figure is THE BISHOP, a man of solemn demeanor, robed in the heavy velvet of classical antiquity. He gestures with a pointed finger, as if baptizing the world with nouns. The other is THE FOREMAN, a restless pragmatic figure in work boots, his pockets bristling with slide rules, glue pots, and crumpled diagrams.\n\n'Observe', says THE BISHOP, pointing to a flat piece of stone. 'Here is the essence of language. I point, and I utter the sound: Slab. A golden thread of association is instantly spun between the sound and the object. The word names the thing.'",
+                assessments: [
+                    {
+                        criteria: [
+                            { name: "Ontological Scope", evidence: "Words name objects", critique: "Catastrophic Narrowing. Works for 'Table' but fails for 'Five'", verdict: "void" },
+                            { name: "Acquisition", evidence: "Ostensive teaching", critique: "Mentalist Speculation. Assumes language of thought", verdict: "shadow" }
+                        ],
+                        summary: "Fatal Flaw: Fido-Fido Fallacy. Assumes every word functions like name-tag."
+                    },
+                    {
+                        criteria: [
+                            { name: "Empirical Fidelity", evidence: "Five Red Apples example", critique: "High Fidelity. Acknowledges different word functions", verdict: "light" },
+                            { name: "Contextual Awareness", evidence: "Language as ancient city", critique: "Structural Integrity. Captures historical accumulation", verdict: "light" },
+                            { name: "Handling Intent", evidence: "Understanding not hidden mental process", critique: "Strong but potentially dismissive of phenomenology", verdict: "shadow" }
+                        ],
+                        summary: "Toolbox analogy dissolves confusion. Language Games allow infinite variability."
+                    }
+                ],
+                comparison: [
+                    ["Meaning", "Correlation (Word ↔ Object)", "Function (Word ↔ Tool)"],
+                    ["Learning", "Ostensive Definition", "Training / Enculturation"],
+                    ["Agency", "Mental (Internal Image)", "Kinetic (Public Action)"]
+                ],
+                verdict:
+                    "Bishop presents naive theory. Foreman presents robust modular theory accepting language as functional form of life."
+            },
+
+            {
+                id: "M13",
+                when: ["THE SCRIBE", "THE GOLEM"],
+                theories: ["Modular Syntactic Parsing", "Procedural Semantics (SHRDLU)"],
+                scores: [40, 88],
+                winner: 1,
+                teaser:
+                    "In a stark, brightly lit void, there exists a floating table. Upon it sits a collection of childish things: a red cube, a blue pyramid, a green box. There is no weather here, no history, and no ambiguity. This is the Micro-World. Hovering above are two entities: THE SCRIBE, a creature made of paper and ink, and THE GOLEM, a mechanical arm made of LISP code...",
+                essay:
+                    "In a stark, brightly lit void, there exists a floating table. Upon it sits a collection of childish things: a red cube, a blue pyramid, a green box. There is no weather here, no history, and no ambiguity. This is the Micro-World.\n\nHovering above this table are two entities. One is THE SCRIBE, a creature made of paper and ink, holding a vast dictionary and a book of grammar rules. The Scribe sees the world as a stream of symbols to be diagrammed.\n\nThe other is THE GOLEM, a mechanical arm made of LISP code and procedural logic, connected to a single, unblinking eye. The Golem sees the world as a series of subroutines to be executed.",
+                assessments: [
+                    {
+                        criteria: [
+                            { name: "Ambiguity", evidence: "Boy Plants dilemma", critique: "Critical Failure. Produces semantic nonsense", verdict: "shadow" },
+                            { name: "Efficiency", evidence: "Tree construction complete", critique: "Bureaucratic Overhead. Wrong variable", verdict: "void" }
+                        ],
+                        summary: "Fatal Flaw: Horizontal Architecture. Elegant but pragmatically useless."
+                    },
+                    {
+                        criteria: [
+                            { name: "Integration", evidence: "Vertical system with integrated faculties", critique: "High Efficacy. Models real-time processing", verdict: "light" },
+                            { name: "Transparency", evidence: "Tracks goal-stack", critique: "Strong Audit Trail. Explainable AI", verdict: "light" },
+                            { name: "Scope", evidence: "Blocks World constraint", critique: "Deceptive Simplicity. Finite domain", verdict: "shadow" }
+                        ],
+                        summary: "Data as Programs paradigm shift. God in shoebox - depth wins over breadth."
+                    }
+                ],
+                comparison: [
+                    ["Architecture", "Horizontal (Stages)", "Vertical (Integrated)"],
+                    ["Meaning", "Dictionary Definition", "Executable Procedure"],
+                    ["Ambiguity", "Paralysis", "Inference via World Model"]
+                ],
+                verdict:
+                    "Scribe produces trees; Golem produces outcomes. Language understanding requires world model."
+            },
+
+            {
+                id: "M14",
+                when: ["THE CARTOGRAPHER", "THE NAVIGATOR"],
+                theories: ["Transformational Generative", "Systemic Grammar (PROGRAMMAR)"],
+                scores: [50, 85],
+                winner: 1,
+                teaser:
+                    "The forest of Language is dense. It is a tangled thicket of words, recursive vines, and deep roots of meaning. Two explorers stand at the edge, preparing to chart a path through. One is THE CARTOGRAPHER, carrying transparent overlays and a compass fixed on 'Deep Structure.' The other is THE NAVIGATOR, wearing a toolbelt of procedural gadgets...",
+                essay:
+                    "The forest of Language is dense. It is a tangled thicket of words, recursive vines, and deep roots of meaning. Two explorers stand at the edge, preparing to chart a path through.\n\nOne is THE CARTOGRAPHER (representing Transformational Grammar/Context-Free Rules). He carries a stack of transparent overlays and a compass fixed on 'Deep Structure.' He believes the forest is an illusion hiding a perfect, logical grid below.\n\nThe other explorer is THE NAVIGATOR (representing Systemic Grammar/PROGRAMMAR). She carries no fixed maps, but wears a toolbelt filled with procedural gadgets: pointers, registers, and interrupt signals.",
+                assessments: [
+                    {
+                        criteria: [
+                            { name: "Parsing Efficiency", evidence: "Unwind transformations", critique: "Practical Failure. Exponentially expensive", verdict: "shadow" },
+                            { name: "Ambiguity", evidence: "Deep Structure trees", critique: "Rigidity. Generates massive ambiguity", verdict: "void" }
+                        ],
+                        summary: "Fatal Flaw: Generation vs interpretation separation. Passable theory, poor engineering."
+                    },
+                    {
+                        criteria: [
+                            { name: "Grammar as Program", evidence: "Executable instructions", critique: "High Efficacy. Intelligent parsing", verdict: "light" },
+                            { name: "Systemic Features", evidence: "Feature networks (MOOD, TRANSITIVITY)", critique: "Semantic Relevance. Features map to meaning", verdict: "light" },
+                            { name: "Complexity", evidence: "And Demon for conjunctions", critique: "Effective hack. Trades purity for performance", verdict: "shadow" }
+                        ],
+                        summary: "Syntax is Control. Grammar as state-machine handles full complexity."
+                    }
+                ],
+                comparison: [
+                    ["Architecture", "Static Tree", "Dynamic Flow"],
+                    ["Grammar", "Rules (S→NP VP)", "Procedures"],
+                    ["Semantics", "Ignored until end", "Checked continuously"]
+                ],
+                verdict:
+                    "Navigator demonstrates Syntax as Control. Executable code bypasses combinatorial explosion."
+            }
+        ];
+
+        function escapeHTML(str) {
+            return String(str)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        function render() {
+            const bracket = document.getElementById('bracket');
+            bracket.innerHTML = '';
+
+            matches.forEach((m, i) => {
+                const div = document.createElement('div');
+                div.className = 'match-card';
+                div.onclick = () => showDetail(i);
+
+                const compareHTML = m.comparison.map(row => `
+          <div class="compare-row">
+            <div class="compare-label">${escapeHTML(row[0])}</div>
+            <div class="compare-val">${escapeHTML(row[1])}</div>
+            <div class="compare-val">${escapeHTML(row[2])}</div>
+          </div>
+        `).join('');
+
+                const leftWinner = m.winner === 0;
+                const rightWinner = m.winner === 1;
+
+                div.innerHTML = `
+          <div class="match-header">
+            <div class="match-id">${escapeHTML(m.id)}</div>
+            <div class="match-title">When ${escapeHTML(m.when[0])} Meets ${escapeHTML(m.when[1])}</div>
+          </div>
+
+          <div class="match-body">
+            <div class="teaser">${escapeHTML(m.teaser)}</div>
+
+            <div class="fighters-grid">
+              <div class="fighter-panel ${leftWinner ? 'winner' : 'loser'}">
+                <div class="fighter-name">${escapeHTML(m.when[0])}</div>
+                <div class="fighter-theory">${escapeHTML(m.theories[0])}</div>
+                <div class="fighter-score">${escapeHTML(m.scores[0])}</div>
+                <div class="fighter-label">${leftWinner ? 'Signifies Mastery' : 'Signifies Weakness'}</div>
+              </div>
+
+              <div class="vs-divider" aria-label="Versus divider">
+                <div class="seam"></div>
+                <div class="vs-icon"><div class="vs-text">VS</div></div>
+                <div class="seam"></div>
+              </div>
+
+              <div class="fighter-panel ${rightWinner ? 'winner' : 'loser'}">
+                <div class="fighter-name">${escapeHTML(m.when[1])}</div>
+                <div class="fighter-theory">${escapeHTML(m.theories[1])}</div>
+                <div class="fighter-score">${escapeHTML(m.scores[1])}</div>
+                <div class="fighter-label">${rightWinner ? 'Signifies Mastery' : 'Signifies Weakness'}</div>
+              </div>
+            </div>
+
+            <div class="quick-compare">${compareHTML}</div>
+            <div class="drama-label">→ SEEDING THE MORAL DRAMA BEFORE THE FIRST HOLD ←</div>
+          </div>
+        `;
+
+                bracket.appendChild(div);
+            });
+        }
+
+        function showDetail(i) {
+            const m = matches[i];
+            const detail = document.getElementById('detail');
+
+            let html = `
+        <h2 style="font-family:'Cinzel',serif; color: var(--cyan); margin-bottom: 1.2rem; font-size: 2.3rem; text-transform: uppercase; letter-spacing:.05em;">
+          When ${escapeHTML(m.when[0])} Meets ${escapeHTML(m.when[1])}
+        </h2>
+
+        <div style="color: rgba(255,255,255,.70); letter-spacing:.12em; text-transform:uppercase; margin-bottom: 1.2rem;">
+          Match ${escapeHTML(m.id)} // ${escapeHTML(m.theories[0])} vs ${escapeHTML(m.theories[1])}
+        </div>
+
+        <div class="full-essay">
+          ${m.essay.split('\\n\\n').map(p => `<p>${escapeHTML(p)}</p>`).join('')}
+        </div>
+
+        <div class="detail-fighters">
+      `;
+
+            m.assessments.forEach((a, idx) => {
+                html += `
+          <div class="detail-fighter">
+            <h3>${escapeHTML(m.when[idx])} (${escapeHTML(m.scores[idx])}/100)</h3>
+            <p style="color: var(--dim); margin-bottom: 1.1rem; line-height:1.5;">${escapeHTML(m.theories[idx])}</p>
+        `;
+
+                a.criteria.forEach(c => {
+                    html += `
+            <div class="assessment-item ${escapeHTML(c.verdict)}-verdict">
+              <strong style="color: var(--gold);">${escapeHTML(c.name)}</strong>
+              <em style="color: var(--dim); display:block; margin:.45rem 0 .55rem;">${escapeHTML(c.evidence)}</em>
+              <div style="color: rgba(255,255,255,.86); line-height:1.55;">${escapeHTML(c.critique)}</div>
+              <span class="verdict-badge ${escapeHTML(c.verdict)}">${escapeHTML(c.verdict)}</span>
+            </div>
+          `;
+                });
+
+                html += `
+          <p style="margin-top: 1.1rem; padding: 1rem; background: rgba(0,0,0,.34); border-left: 3px solid var(--gold); line-height: 1.6;">
+            <strong>Summary:</strong> ${escapeHTML(a.summary)}
+          </p>
+          </div>
+        `;
+            });
+
+            html += `
+        </div>
+
+        <div style="background: rgba(77,217,255,.05); border: 1px solid rgba(77,217,255,.50); padding: 1.6rem; margin: 1.6rem 0;
+          clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);">
+          <h3 style="font-family:'Cinzel',serif; color: var(--gold); margin-bottom: .7rem; text-transform: uppercase; letter-spacing:.06em;">
+            Dark Matter Guardian Verdict
+          </h3>
+          <p style="line-height: 1.75; color: rgba(255,255,255,.86);">${escapeHTML(m.verdict)}</p>
+        </div>
+
+        <button class="export-btn" onclick="exportMatch(${i})">Export Assessment</button>
+      `;
+
+            detail.innerHTML = html;
+            const modal = document.getElementById('modal');
+            modal.style.display = 'block';
+            modal.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
+        }
+
+        function exportMatch(i) {
+            const blob = new Blob([JSON.stringify(matches[i], null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${matches[i].id}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        window.onclick = (e) => { if (e.target && e.target.id === 'modal') closeModal(); };
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+        render();
+    </script>
+</body>
+
+</html>

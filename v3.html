@@ -1,0 +1,965 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <title>DMMD // MAIN EVENT</title>
+    <style>
+        :root {
+            /* Core */
+            --bg0: #05070f;
+            --bg1: #070a14;
+            --ink: #eef2ff;
+            --mute: rgba(238, 242, 255, .68);
+            --line: rgba(238, 242, 255, .18);
+
+            /* Left (Metis) warm-organic */
+            --L1: #ffb703;
+            /* poster gold */
+            --L2: #a7f3d0;
+            /* soft mint */
+            --L3: #fb7185;
+            /* punch pink */
+
+            /* Right (Thin Plans) cool-technical */
+            --R1: #38bdf8;
+            /* cyan */
+            --R2: #a5b4fc;
+            /* indigo */
+            --R3: #f8fafc;
+            /* near white */
+
+            /* Verdict colors */
+            --vLight: #22c55e;
+            --vShadow: #94a3b8;
+            --vVoid: #ef4444;
+
+            --ease: cubic-bezier(.23, 1, .32, 1);
+
+            /* Sizing */
+            --radius: 20px;
+            --radius2: 28px;
+            --stroke: 2px;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0
+        }
+
+        body {
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+            color: var(--ink);
+            overflow: hidden;
+            /* one viewport */
+            background:
+                radial-gradient(1100px 700px at 20% 15%, rgba(255, 183, 3, .18), transparent 55%),
+                radial-gradient(1100px 700px at 80% 10%, rgba(56, 189, 248, .18), transparent 55%),
+                radial-gradient(900px 600px at 80% 90%, rgba(165, 180, 252, .12), transparent 60%),
+                linear-gradient(180deg, var(--bg0), var(--bg1));
+        }
+
+        /* Retro grid + scanline (subtle, not busy) */
+        .fx {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .55;
+            background:
+                repeating-linear-gradient(0deg, rgba(255, 255, 255, .04) 0 1px, transparent 1px 6px),
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, .03) 0 1px, transparent 1px 10px);
+            mix-blend-mode: overlay;
+        }
+
+        .scan {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .18;
+            background: repeating-linear-gradient(180deg, rgba(0, 0, 0, .25) 0 2px, transparent 2px 8px);
+            mix-blend-mode: multiply;
+        }
+
+        .shell {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 80s poster marquee header */
+        .marquee {
+            padding: clamp(12px, 1.6vw, 18px) clamp(14px, 2vw, 22px);
+            border-bottom: 1px solid var(--line);
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 12px;
+            background:
+                linear-gradient(90deg, rgba(255, 183, 3, .10), transparent 22%),
+                linear-gradient(270deg, rgba(56, 189, 248, .10), transparent 22%),
+                rgba(0, 0, 0, .15);
+            backdrop-filter: blur(6px);
+        }
+
+        .stub {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            color: var(--mute);
+            text-transform: uppercase;
+            letter-spacing: .16em;
+            font-size: clamp(10px, 1.1vw, 12px);
+            white-space: nowrap;
+        }
+
+        .pill {
+            border: 1px solid var(--line);
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .04);
+        }
+
+        .titleBlock {
+            text-align: center;
+            line-height: 1.05;
+        }
+
+        .titleTop {
+            text-transform: uppercase;
+            letter-spacing: .22em;
+            font-weight: 700;
+            font-size: clamp(10px, 1.2vw, 13px);
+            color: var(--mute);
+        }
+
+        .titleMain {
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            font-weight: 900;
+            font-size: clamp(18px, 2.2vw, 26px);
+            margin-top: 6px;
+        }
+
+        .titleMain .neonL {
+            color: var(--L1)
+        }
+
+        .titleMain .neonR {
+            color: var(--R1)
+        }
+
+        .titleSub {
+            margin-top: 6px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            font-size: clamp(10px, 1.05vw, 12px);
+            color: rgba(238, 242, 255, .78);
+            opacity: .9;
+        }
+
+        /* Main matchup */
+        .matchup {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 160px 1fr;
+            min-height: 0;
+        }
+
+        .side {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(14px, 2.2vw, 26px);
+            overflow: hidden;
+        }
+
+        .side.left {
+            background:
+                radial-gradient(900px 600px at 10% 10%, rgba(255, 183, 3, .22), transparent 60%),
+                radial-gradient(900px 600px at 0% 100%, rgba(167, 243, 208, .16), transparent 60%);
+        }
+
+        .side.right {
+            background:
+                radial-gradient(900px 600px at 90% 10%, rgba(56, 189, 248, .22), transparent 60%),
+                radial-gradient(900px 600px at 100% 100%, rgba(165, 180, 252, .16), transparent 60%);
+        }
+
+        /* Belt divider = sacred boundary */
+        .beltWrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 14px 10px;
+        }
+
+        .belt {
+            width: 108px;
+            height: min(74vh, 520px);
+            border-radius: 999px;
+            border: var(--stroke) solid rgba(238, 242, 255, .38);
+            background:
+                radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .08), transparent 40%),
+                linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(0, 0, 0, .15));
+            box-shadow:
+                0 0 32px rgba(56, 189, 248, .18),
+                0 0 32px rgba(255, 183, 3, .12),
+                inset 0 0 0 1px rgba(0, 0, 0, .55);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 260ms var(--ease), box-shadow 260ms var(--ease);
+        }
+
+        .belt:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow:
+                0 0 48px rgba(56, 189, 248, .28),
+                0 0 48px rgba(255, 183, 3, .22),
+                inset 0 0 0 1px rgba(0, 0, 0, .55);
+        }
+
+        /* belt stitches */
+        .belt:before {
+            content: "";
+            position: absolute;
+            inset: 16px;
+            border-radius: 999px;
+            border: 1px dashed rgba(238, 242, 255, .22);
+            opacity: .9;
+        }
+
+        /* center medallion */
+        .medal {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 86px;
+            height: 86px;
+            border-radius: 22px;
+            border: var(--stroke) solid rgba(238, 242, 255, .42);
+            background:
+                radial-gradient(circle at 30% 20%, rgba(255, 183, 3, .35), transparent 52%),
+                radial-gradient(circle at 70% 20%, rgba(56, 189, 248, .35), transparent 52%),
+                radial-gradient(circle at 50% 70%, rgba(255, 255, 255, .08), transparent 60%),
+                rgba(0, 0, 0, .22);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, .55);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: .16em;
+            user-select: none;
+        }
+
+        .medal .vs {
+            font-weight: 900;
+            letter-spacing: .10em;
+            font-size: 22px;
+        }
+
+        .medal .id {
+            font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+            font-size: 11px;
+            color: rgba(238, 242, 255, .82);
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(238, 242, 255, .22);
+            background: rgba(255, 255, 255, .05);
+        }
+
+        /* tiny TE-ish labels on belt */
+        .beltLabel {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            text-align: center;
+            font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+            font-size: 10px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: rgba(238, 242, 255, .72);
+            opacity: .9;
+            user-select: none;
+        }
+
+        .beltLabel.top {
+            top: 18px
+        }
+
+        .beltLabel.bot {
+            bottom: 18px
+        }
+
+        .beltHint {
+            position: absolute;
+            left: 50%;
+            bottom: 60px;
+            transform: translateX(-50%);
+            font-size: 10px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: rgba(238, 242, 255, .55);
+        }
+
+        /* Fighter cards: chunky poster cards w/ instrument labels */
+        .card {
+            width: min(520px, 100%);
+            border-radius: var(--radius2);
+            border: var(--stroke) solid rgba(238, 242, 255, .22);
+            background:
+                radial-gradient(1200px 400px at 10% 0%, rgba(255, 255, 255, .06), transparent 55%),
+                rgba(0, 0, 0, .38);
+            box-shadow: 0 26px 70px rgba(0, 0, 0, .60);
+            position: relative;
+            overflow: hidden;
+            padding: clamp(14px, 2vw, 20px);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: transform 420ms var(--ease), opacity 420ms var(--ease), box-shadow 260ms var(--ease), filter 260ms var(--ease);
+        }
+
+        .card.enter {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        .card:hover {
+            transform: translateY(-4px) scale(1.01)
+        }
+
+        .card.left {
+            border-color: rgba(255, 183, 3, .40)
+        }
+
+        .card.right {
+            border-color: rgba(56, 189, 248, .40)
+        }
+
+        /* Color strip / “poster ink” edge */
+        .strip {
+            position: absolute;
+            inset: 0;
+            width: 10px;
+            opacity: .95;
+        }
+
+        .left .strip {
+            background: linear-gradient(180deg, rgba(255, 183, 3, .95), rgba(167, 243, 208, .75), rgba(251, 113, 133, .78));
+        }
+
+        .right .strip {
+            background: linear-gradient(180deg, rgba(56, 189, 248, .95), rgba(165, 180, 252, .78), rgba(248, 250, 252, .62));
+        }
+
+        .cardInner {
+            position: relative;
+            padding-left: 14px
+        }
+
+        .topRow {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .name {
+            font-weight: 950;
+            text-transform: uppercase;
+            letter-spacing: .10em;
+            font-size: clamp(18px, 2.2vw, 26px);
+            margin: 0;
+            line-height: 1.05;
+        }
+
+        .type {
+            margin-top: 6px;
+            text-transform: uppercase;
+            letter-spacing: .18em;
+            font-size: clamp(10px, 1.2vw, 12px);
+            color: var(--mute);
+            max-width: 260px;
+            text-align: right;
+        }
+
+        .metaBar {
+            margin-top: 12px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        .scoreBlock {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .score {
+            font-weight: 950;
+            font-size: clamp(44px, 5.0vw, 64px);
+            line-height: 1;
+            letter-spacing: .02em;
+        }
+
+        .scoreTag {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            font-size: 11px;
+            color: rgba(238, 242, 255, .78);
+        }
+
+        .scoreTag .tiny {
+            color: rgba(238, 242, 255, .58);
+            font-size: 10px;
+            letter-spacing: .16em;
+        }
+
+        .stamp {
+            border: 2px solid rgba(238, 242, 255, .24);
+            border-radius: 14px;
+            padding: 10px 12px;
+            min-width: 160px;
+            text-align: center;
+            background: rgba(255, 255, 255, .04);
+        }
+
+        .stamp .label {
+            font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+            font-size: 10px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: rgba(238, 242, 255, .62);
+        }
+
+        .stamp .verdict {
+            margin-top: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+            font-size: 11px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            border: 1px solid rgba(238, 242, 255, .22);
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: var(--vShadow);
+            box-shadow: 0 0 16px rgba(255, 255, 255, .12);
+        }
+
+        .verdict.light {
+            background: rgba(34, 197, 94, .16);
+            border-color: rgba(34, 197, 94, .45)
+        }
+
+        .verdict.light .dot {
+            background: var(--vLight);
+            box-shadow: 0 0 16px rgba(34, 197, 94, .55)
+        }
+
+        .verdict.shadow {
+            background: rgba(148, 163, 184, .12);
+            border-color: rgba(148, 163, 184, .35)
+        }
+
+        .verdict.shadow .dot {
+            background: var(--vShadow)
+        }
+
+        .verdict.void {
+            background: rgba(239, 68, 68, .16);
+            border-color: rgba(239, 68, 68, .45)
+        }
+
+        .verdict.void .dot {
+            background: var(--vVoid);
+            box-shadow: 0 0 16px rgba(239, 68, 68, .55)
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(238, 242, 255, .22), transparent);
+            margin: 14px 0 12px;
+        }
+
+        .sectionTitle {
+            font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+            font-size: 11px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: rgba(238, 242, 255, .62);
+            margin-bottom: 10px;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .chip {
+            border-radius: 999px;
+            padding: 8px 10px;
+            font-size: 13px;
+            line-height: 1.15;
+            border: 1px solid rgba(238, 242, 255, .16);
+            background: rgba(255, 255, 255, .04);
+            color: rgba(238, 242, 255, .92);
+        }
+
+        .left .chip {
+            border-color: rgba(255, 183, 3, .22)
+        }
+
+        .right .chip {
+            border-color: rgba(56, 189, 248, .22)
+        }
+
+        /* Winner vs loser readability */
+        .winner {
+            box-shadow:
+                0 26px 70px rgba(0, 0, 0, .60),
+                0 0 44px rgba(255, 183, 3, .22),
+                0 0 32px rgba(56, 189, 248, .14);
+            filter: saturate(1.06);
+        }
+
+        .loser {
+            filter: grayscale(.35) brightness(.95);
+            opacity: .92;
+        }
+
+        .loser:after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, .05), rgba(0, 0, 0, .28));
+            pointer-events: none;
+        }
+
+        /* Modal (breakdown) */
+        .modal {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, .62);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 220ms var(--ease);
+            z-index: 30;
+        }
+
+        .modal.open {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        .panel {
+            width: min(920px, 92vw);
+            max-height: 84vh;
+            overflow: auto;
+            border-radius: 22px;
+            border: 2px solid rgba(238, 242, 255, .22);
+            background:
+                radial-gradient(900px 500px at 15% 0%, rgba(255, 183, 3, .12), transparent 60%),
+                radial-gradient(900px 500px at 85% 0%, rgba(56, 189, 248, .12), transparent 60%),
+                rgba(0, 0, 0, .78);
+            box-shadow: 0 30px 90px rgba(0, 0, 0, .75);
+            padding: 18px 18px 14px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 38px;
+            height: 38px;
+            border-radius: 999px;
+            border: 1px solid rgba(238, 242, 255, .22);
+            background: rgba(255, 255, 255, .05);
+            color: rgba(238, 242, 255, .82);
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 180ms var(--ease), background 180ms var(--ease);
+        }
+
+        .close:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, .08)
+        }
+
+        .panelHead {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            padding-right: 44px;
+        }
+
+        .panelTitle {
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: .10em;
+            font-weight: 950;
+            font-size: 18px;
+        }
+
+        .panelSub {
+            margin-top: 6px;
+            font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+            font-size: 11px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: rgba(238, 242, 255, .62);
+        }
+
+        .panelGrid {
+            margin-top: 14px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .box {
+            border-radius: 18px;
+            border: 1px solid rgba(238, 242, 255, .16);
+            background: rgba(255, 255, 255, .04);
+            padding: 12px 12px 10px;
+        }
+
+        .box h4 {
+            margin: 0 0 10px;
+            font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+            font-size: 11px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: rgba(238, 242, 255, .70);
+        }
+
+        .list {
+            margin: 0;
+            padding-left: 18px;
+            color: rgba(238, 242, 255, .90)
+        }
+
+        .list li {
+            margin: 7px 0;
+            line-height: 1.25
+        }
+
+        .note {
+            margin-top: 12px;
+            color: rgba(238, 242, 255, .72);
+            font-size: 13px;
+            line-height: 1.35;
+        }
+
+        /* Mobile: stack with horizontal belt */
+        @media (max-width: 820px) {
+            body {
+                overflow: hidden
+            }
+
+            .matchup {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 120px 1fr;
+            }
+
+            .beltWrap {
+                padding: 6px 14px
+            }
+
+            .belt {
+                width: min(520px, 92vw);
+                height: 86px;
+                border-radius: 999px;
+            }
+
+            .belt:before {
+                inset: 14px
+            }
+
+            .medal {
+                width: 92px;
+                height: 62px;
+                border-radius: 18px;
+            }
+
+            .beltLabel {
+                width: auto;
+                left: auto;
+                transform: none;
+                letter-spacing: .14em;
+            }
+
+            .beltLabel.top {
+                top: 12px;
+                left: 18px
+            }
+
+            .beltLabel.bot {
+                bottom: 12px;
+                right: 18px;
+                left: auto
+            }
+
+            .beltHint {
+                bottom: 10px
+            }
+
+            .panelGrid {
+                grid-template-columns: 1fr
+            }
+
+            .stamp {
+                min-width: auto
+            }
+        }
+
+        @media (max-width: 420px) {
+            .stamp {
+                padding: 8px 10px
+            }
+
+            .chip {
+                font-size: 12px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fx"></div>
+    <div class="scan"></div>
+
+    <div class="shell">
+        <header class="marquee">
+            <div class="stub">
+                <span class="pill">MAIN EVENT</span>
+                <span class="pill">CATEGORY: DESIGN PHILOSOPHY</span>
+            </div>
+
+            <div class="titleBlock" aria-label="Poster title">
+                <div class="titleTop">Dark Matter Meets Design</div>
+                <div class="titleMain"><span class="neonL">Metis</span> vs <span class="neonR">Thin Plans</span></div>
+                <div class="titleSub">MATCH ID: M12 // ONE VIEWPORT // DIVIDER = BELT</div>
+            </div>
+
+            <div class="stub" style="justify-content:flex-end">
+                <span class="pill">RND 01</span>
+                <span class="pill">PRESS BELT: BREAKDOWN</span>
+            </div>
+        </header>
+
+        <main class="matchup" aria-label="Split-screen wrestling poster interface">
+            <!-- LEFT -->
+            <section class="side left" aria-label="Metis fighter side">
+                <article class="card left winner" id="cardLeft">
+                    <div class="strip"></div>
+                    <div class="cardInner">
+                        <div class="topRow">
+                            <div>
+                                <h2 class="name">Metis</h2>
+                                <div class="titleSub" style="margin-top:10px;">WEIGHT CLASS: FIELD CRAFT</div>
+                            </div>
+                            <div class="type">Embodied, situated knowing<br />that survives contact.</div>
+                        </div>
+
+                        <div class="metaBar">
+                            <div class="scoreBlock" aria-label="Metis score block">
+                                <div class="score" style="color:var(--L1)">92</div>
+                                <div class="scoreTag">
+                                    <div>SCORE / 100</div>
+                                    <div class="tiny">signal: thick + adaptive</div>
+                                </div>
+                            </div>
+
+                            <div class="stamp" aria-label="Metis verdict stamp">
+                                <div class="label">VERDICT</div>
+                                <div class="verdict light"><span class="dot"></span>LIGHT</div>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="sectionTitle">KEY ATTRIBUTES</div>
+                        <div class="chips">
+                            <span class="chip">Context in motion (not frozen schemas)</span>
+                            <span class="chip">Negotiates with recalcitrant materials</span>
+                            <span class="chip">Learns by repair + feedback loops</span>
+                            <span class="chip">Thick prompts: roles, examples, ritual</span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <!-- BELT / DIVIDER -->
+            <aside class="beltWrap" aria-label="Championship belt divider">
+                <button class="belt" type="button" id="beltBtn" aria-label="Open full comparison breakdown">
+                    <div class="beltLabel top">DMMD TITLE BELT</div>
+                    <div class="medal">
+                        <div class="vs">VS</div>
+                        <div class="id">M12</div>
+                    </div>
+                    <div class="beltHint">TAP / CLICK</div>
+                    <div class="beltLabel bot">SACRED BOUNDARY</div>
+                </button>
+            </aside>
+
+            <!-- RIGHT -->
+            <section class="side right" aria-label="Thin Plans fighter side">
+                <article class="card right loser" id="cardRight">
+                    <div class="strip"></div>
+                    <div class="cardInner">
+                        <div class="topRow">
+                            <div>
+                                <h2 class="name">Thin Plans</h2>
+                                <div class="titleSub" style="margin-top:10px;">WEIGHT CLASS: BLUEPRINT ORDER</div>
+                            </div>
+                            <div class="type">Top-down schemes<br />that assume compliance.</div>
+                        </div>
+
+                        <div class="metaBar">
+                            <div class="scoreBlock" aria-label="Thin Plans score block">
+                                <div class="score" style="color:var(--R1)">68</div>
+                                <div class="scoreTag">
+                                    <div>SCORE / 100</div>
+                                    <div class="tiny">signal: clean + brittle</div>
+                                </div>
+                            </div>
+
+                            <div class="stamp" aria-label="Thin Plans verdict stamp">
+                                <div class="label">VERDICT</div>
+                                <div class="verdict shadow"><span class="dot"></span>SHADOW</div>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="sectionTitle">KEY ATTRIBUTES</div>
+                        <div class="chips">
+                            <span class="chip">Optimizes from above</span>
+                            <span class="chip">Minimizes ambiguity (loses nuance)</span>
+                            <span class="chip">Weak under improvisation pressure</span>
+                            <span class="chip">One-shot commands → brittle outcomes</span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="panel" role="document">
+            <button class="close" id="closeBtn" aria-label="Close">✕</button>
+
+            <div class="panelHead">
+                <div>
+                    <h3 class="panelTitle">M12 // FULL BREAKDOWN</h3>
+                    <div class="panelSub">poster logic + retrofutur instrumentation</div>
+                </div>
+                <div class="panelSub" style="text-align:right">
+                    WINNER: <span style="color:var(--L1); font-weight:900">METIS</span><br />
+                    FAIL MODE: <span style="color:var(--R1); font-weight:900">THIN PLANS</span>
+                </div>
+            </div>
+
+            <div class="panelGrid">
+                <div class="box">
+                    <h4>METIS (LIGHT)</h4>
+                    <ul class="list">
+                        <li>Plans as <strong>negotiation</strong> with the world, not domination over it.</li>
+                        <li>Thickening agents: roles, metaphor, few-shot examples, iterative feedback.</li>
+                        <li>Misbuilds are data: “Where did language ↔ geometry stop agreeing?”</li>
+                    </ul>
+                </div>
+
+                <div class="box">
+                    <h4>THIN PLANS (SHADOW)</h4>
+                    <ul class="list">
+                        <li>Assumes the substrate is obedient; reality becomes “noise” instead of partner.</li>
+                        <li>Prefers one-shot clarity; loses robustness when conditions shift.</li>
+                        <li>Brittle under recalcitrance: ambiguity, friction, constraints, surprises.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="note">
+                If you want the UI to “fight better,” turn attributes into measurable rubric rows (speed, adaptivity,
+                coherence,
+                repairability). Then animate score deltas like a real match card.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (() => {
+            const left = document.getElementById("cardLeft");
+            const right = document.getElementById("cardRight");
+            const beltBtn = document.getElementById("beltBtn");
+            const modal = document.getElementById("modal");
+            const closeBtn = document.getElementById("closeBtn");
+
+            // Enter animation: snappy poster reveal
+            window.addEventListener("DOMContentLoaded", () => {
+                requestAnimationFrame(() => {
+                    left.classList.add("enter");
+                    setTimeout(() => right.classList.add("enter"), 120);
+                });
+            });
+
+            const open = () => {
+                modal.classList.add("open");
+                modal.setAttribute("aria-hidden", "false");
+            };
+            const close = () => {
+                modal.classList.remove("open");
+                modal.setAttribute("aria-hidden", "true");
+            };
+
+            beltBtn.addEventListener("click", open);
+            closeBtn.addEventListener("click", close);
+
+            modal.addEventListener("click", (e) => {
+                if (e.target === modal) close();
+            });
+
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && modal.classList.contains("open")) close();
+                if ((e.key === "Enter" || e.key === " ") && document.activeElement === beltBtn) {
+                    e.preventDefault(); open();
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>
