@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Thick Prompts: A Cybernetic Approach to AI Viscosity</title>
+    <meta name="description" content="Practice-based dissertation on viscous human-AI collaboration.">
+    <style>
+        :root {
+            --bg: #fdfdfd;
+            --surface: #ffffff;
+            --border: #e5e5e5;
+            --text: #111111;
+            --dim: #555555;
+            --accent: #0044aa;
+            --t1: #b30000;
+            --t2: #cc6600;
+            --t3: #555555;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #050505;
+                --surface: #0f0f0f;
+                --border: #222222;
+                --text: #eeeeee;
+                --dim: #888888;
+                --accent: #6699ff;
+                --t1: #ff3333;
+                --t2: #ff9933;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Times New Roman', Times, serif;
+            /* More academic serif */
+            line-height: 1.6;
+            padding: 0 20px;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 80px 0;
+        }
+
+        header {
+            margin-bottom: 60px;
+            text-align: left;
+            /* Academic left-align */
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 40px;
+        }
+
+        .overline {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--dim);
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .author {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            color: var(--dim);
+            margin-top: 20px;
+        }
+
+        .abstract {
+            margin-bottom: 50px;
+        }
+
+        .abstract h2 {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--dim);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .abstract p {
+            font-size: 18px;
+            margin-bottom: 24px;
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        .keywords {
+            margin-top: 30px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 12px;
+            color: var(--dim);
+            font-style: italic;
+        }
+
+        .keywords strong {
+            color: var(--text);
+            font-style: normal;
+        }
+
+        .launch {
+            text-align: left;
+            margin-bottom: 60px;
+            padding: 30px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .launch-btn {
+            display: inline-block;
+            background: var(--text);
+            /* Stark contrast */
+            color: var(--bg);
+            text-decoration: none;
+            padding: 16px 40px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-radius: 2px;
+            transition: opacity 0.2s;
+        }
+
+        .launch-btn:hover {
+            opacity: 0.8;
+        }
+
+        .thesis {
+            margin-bottom: 60px;
+        }
+
+        .thesis h2 {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--dim);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .thesis-statement {
+            font-size: 20px;
+            font-style: italic;
+            padding-left: 25px;
+            border-left: 4px solid var(--accent);
+            margin-bottom: 35px;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        .claims {
+            list-style: none;
+            counter-reset: claim;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        .claims li {
+            counter-increment: claim;
+            position: relative;
+            font-size: 15px;
+            padding-left: 40px;
+        }
+
+        .claims li::before {
+            content: counter(claim);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .claims li strong {
+            color: var(--text);
+            display: block;
+            margin-bottom: 4px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .archive {
+            margin-bottom: 60px;
+        }
+
+        .archive h2 {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--dim);
+            margin-bottom: 25px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .tier {
+            margin-bottom: 40px;
+        }
+
+        .tier-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .tier-badge {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 4px 8px;
+            letter-spacing: 1px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .t1 .tier-badge {
+            background: var(--t1);
+        }
+
+        .t2 .tier-badge {
+            background: var(--t2);
+        }
+
+        .t3 .tier-badge {
+            background: var(--t3);
+        }
+
+        .tier-label {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .tier-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .tier-item {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 12px;
+            padding: 10px 14px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.15s;
+            text-decoration: none;
+            color: var(--dim);
+            line-height: 1.4;
+        }
+
+        .tier-item:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .t1 .tier-item {
+            border-left: 3px solid var(--t1);
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .t2 .tier-item {
+            border-left: 3px solid var(--t2);
+        }
+
+        .t3 .tier-item {
+            border-left: 3px solid var(--t3);
+        }
+
+        footer {
+            text-align: left;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 11px;
+            color: var(--dim);
+            display: flex;
+            gap: 20px;
+        }
+
+        footer a {
+            color: var(--dim);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 0;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .abstract p {
+                font-size: 16px;
+                text-align: left;
+            }
+
+            .thesis-statement {
+                font-size: 18px;
+            }
+
+            .tier-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .loading {
+            padding: 20px;
+            color: var(--dim);
+            font-size: 12px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="overline">Dissertation Research</div>
+            <h1>Thick Prompts: A Cybernetic Approach to AI Viscosity</h1>
+            <div class="author">W.F. Harts · 2024 · MEETS Archive</div>
+        </header>
+
+        <div class="abstract">
+            <h2>Abstract</h2>
+            <p>
+                Contemporary AI interfaces prioritize "frictionless" interaction, reducing human intent to thin,
+                transactional queries. This practice-based dissertation argues that meaningful human-AI collaboration
+                requires <strong>viscosity</strong>—a deliberate thickening of the communicative medium.
+            </p>
+            <p>
+                By synthesizing Geertzian <em>thick description</em> with Batesonian cybernetics, I propose a framework
+                where "thick prompts" act as high-viscosity feedback loops. Unlike efficient commands, these prompts
+                resist immediate closure, slowing the system's collapse into generic probability and opening space for
+                emergent, context-rich meaning.
+            </p>
+            <div class="keywords">
+                <strong>Keywords:</strong> thick description, cybernetics, semiotic viscosity, prompt engineering,
+                human-AI collaboration, worlding
+            </div>
+        </div>
+
+        <div class="launch">
+            <a href="slideshow.html" class="launch-btn">ENTER ARCHIVE</a>
+        </div>
+
+        <div class="thesis">
+            <h2>Central Argument</h2>
+            <p class="thesis-statement">
+                Prompt engineering is a misnomer; the challenge is not to engineer efficient commands but to cultivate
+                <strong>semiotic viscosity</strong>. The generative capacity of an AI system is directly proportional to
+                the cultural and contextual "thickness" of its input, transforming the prompt from a directive into a
+                shared, cybernetic environment.
+            </p>
+            <ol class="claims">
+                <li>
+                    <strong>From Transaction to Environment</strong>
+                    Thin prompts treat AI as a tool for retrieval; thick prompts treat AI as an environment for thought.
+                    By embedding cultural density, we shift from extracting answers to inhabiting shared semiotic
+                    worlds.
+                </li>
+                <li>
+                    <strong>The Viscosity Principle</strong>
+                    Resistance is necessary for traction. Just as physical movement requires friction, intellectual
+                    movement requires semiotic resistance. Viscous prompts provide the necessary "drag" to prevent the
+                    model from sliding into hallucination or banality.
+                </li>
+                <li>
+                    <strong>Cybernetic Worlding</strong>
+                    Prompting is a recursive act of world-building ("worlding"). Following McLuhan, the medium of the
+                    prompt shapes the message of the output. A "cool," low-definition prompt demands high participation,
+                    while a "hot," thick prompt extends the user's cognitive model into the machine.
+                </li>
+            </ol>
+        </div>
+
+        <div class="archive">
+            <h2>Archive Structure</h2>
+
+            <div class="tier t1">
+                <div class="tier-header">
+                    <span class="tier-badge">TIER 1</span>
+                    <span class="tier-label">Original Contributions: The Viscosity Framework</span>
+                </div>
+                <div class="tier-list" id="tier1"></div>
+            </div>
+
+            <div class="tier t2">
+                <div class="tier-header">
+                    <span class="tier-badge">TIER 2</span>
+                    <span class="tier-label">Direct Sources: Cybernetics & Anthropology</span>
+                </div>
+                <div class="tier-list" id="tier2"></div>
+            </div>
+
+            <div class="tier t3">
+                <div class="tier-header">
+                    <span class="tier-badge">TIER 3</span>
+                    <span class="tier-label">Context: Lineage & History</span>
+                </div>
+                <div class="tier-list" id="tier3"></div>
+            </div>
+        </div>
+
+        <footer>
+            <a href="DISSERTATION.md">Dissertation</a>
+            <a href="BIBLIOGRAPHY.md">Bibliography</a>
+            <a href="references.bib">BibTeX</a>
+            <a href="https://github.com/hartswf0/meets">Source Code</a>
+        </footer>
+    </div>
+
+    <script>
+        async function init() {
+            try {
+                const res = await fetch('manifest.json');
+                const manifest = await res.json();
+
+                const tiers = { 1: [], 2: [], 3: [] };
+
+                manifest.forEach(f => {
+                    const t = f.tier || 3;
+                    tiers[t].push({
+                        id: f.id,
+                        title: f.title
+                    });
+                });
+
+                // Sort alphabetically
+                [1, 2, 3].forEach(t => {
+                    tiers[t].sort((a, b) => a.title.localeCompare(b.title));
+                });
+
+                // Render as anchor links
+                [1, 2, 3].forEach(t => {
+                    const container = document.getElementById('tier' + t);
+                    if (tiers[t].length === 0) {
+                        container.innerHTML = '<span class="loading">None</span>';
+                    } else {
+                        container.innerHTML = tiers[t].map(item =>
+                            `<a class="tier-item" href="slideshow.html#${item.id}">${item.title}</a>`
+                        ).join('');
+                    }
+                });
+
+            } catch (e) {
+                console.error(e);
+                document.querySelectorAll('.tier-list').forEach(el => {
+                    el.innerHTML = '<span class="loading">Open via localhost:8080</span>';
+                });
+            }
+        }
+
+        init();
+    </script>
+</body>
+
+</html>
